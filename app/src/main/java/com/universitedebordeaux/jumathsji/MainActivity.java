@@ -84,19 +84,20 @@ public class MainActivity extends AppCompatActivity {
     private void updateDatabase(String uri) {
         Context context = this;
         UpdateDBTask updater = new UpdateDBTask(getApplicationContext(), mf -> {
-            String[] names = new File(context.getExternalFilesDir(mf.name), "data").list();
-            StringBuilder show = new StringBuilder();
+            // String[] names = new File(context.getExternalFilesDir(mf.name), "data").list();
+            // StringBuilder show = new StringBuilder();
             TextView tv = findViewById(R.id.textView);
 
-            if (names == null || names.length == 0) {
-                show.append("BDD Vide !");
-            } else {
-                show.append("La BDD est composée des fichiers :\n");
-                for (String file : names) {
-                    show.append(file).append("\n");
-                }
-            }
-            tv.setText(show.toString());
+            // if (names == null || names.length == 0) {
+            //    show.append("BDD Vide !");
+            // } else {
+            //     show.append("La BDD est composée des fichiers :\n");
+            //    for (String file : names) {
+            //        show.append(file).append("\n");
+            //    }
+            //}
+            // tv.setText(show.toString());
+            tv.setText("La BDD est OK");
         });
 
         updater.execute(uri);

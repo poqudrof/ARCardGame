@@ -12,6 +12,7 @@ import org.yaml.snakeyaml.Yaml;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.List;
 
 // Singleton class to manage the SQLite database, cannot be called in the graphics thread.
@@ -36,6 +37,7 @@ public abstract class AppDatabase extends RoomDatabase {
     }
 
     // Reloads the database from a folder containing YAML files in the correct format.
+    /*
     public static void reload(Context context, File dir) {
         if (dir == null || dir.list().length == 0) return;
 
@@ -56,6 +58,34 @@ public abstract class AppDatabase extends RoomDatabase {
                 db.lineDao().insertAll(CardYaml.getLines(cardYamlList));
             } catch (FileNotFoundException e) {
                 Log.e("DB Loader", "File not found : " + file);
+            } catch (Exception e) {
+                Log.e("DB Loader", "File card malformed : " + file);
+            }
+        }
+    }
+    */
+
+    public static void reload(Context context)
+    {
+        AppDatabase db = getInstance(context);
+        Yaml yaml;
+        String[] rawFiles = {"e3dcm1", "emcm2"};
+
+        db.clearAllTables();
+
+        Log.d("DB Loader", "res/raw");
+
+        yaml = new Yaml(new CardConstructor());
+        for (String file : rawFiles) {
+            List<CardYaml> cardYamlList;
+            InputStream inputStream = context.getResources().openRawResource(context.getResources().
+                    getIdentifier(file, "raw", context.getPackageName()));
+
+            try {
+                cardYamlList = yaml.load(inputStream);
+
+                db.cardDao().insertAll(CardYaml.getCards(cardYamlList));
+                db.lineDao().insertAll(CardYaml.getLines(cardYamlList));
             } catch (Exception e) {
                 Log.e("DB Loader", "File card malformed : " + file);
             }
