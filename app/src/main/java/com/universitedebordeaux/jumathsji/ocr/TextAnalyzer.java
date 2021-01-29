@@ -1,27 +1,10 @@
 package com.universitedebordeaux.jumathsji.ocr;
 
-import android.content.res.AssetManager;
-import android.media.Image;
-import android.util.Log;
+public class TextAnalyzer {
 
-import androidx.camera.core.ImageAnalysis;
-import androidx.camera.core.ImageProxy;
+}
 
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.ml.vision.FirebaseVision;
-import com.google.firebase.ml.vision.common.FirebaseVisionImage;
-import com.google.firebase.ml.vision.common.FirebaseVisionImageMetadata;
-import com.google.firebase.ml.vision.text.FirebaseVisionText;
-import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.stream.Collectors;
-
+/*
 // This analyzer acquires the frames from the camera.
 public class TextAnalyzer implements ImageAnalysis.Analyzer, OnSuccessListener<FirebaseVisionText> {
     // Google OCR.
@@ -107,3 +90,4 @@ public class TextAnalyzer implements ImageAnalysis.Analyzer, OnSuccessListener<F
         new SearchTask(mActivity, mInterpreter).execute(lines);
     }
 }
+*/

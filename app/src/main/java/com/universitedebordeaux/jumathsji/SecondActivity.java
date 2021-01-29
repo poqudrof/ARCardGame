@@ -1,55 +1,32 @@
 package com.universitedebordeaux.jumathsji;
 
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-
-import com.google.android.gms.common.api.CommonStatusCodes;
-import com.universitedebordeaux.jumathsji.db.Card;
-import com.universitedebordeaux.jumathsji.db.CardSearchTask;
-import com.universitedebordeaux.jumathsji.db.CardWithLines;
-import com.universitedebordeaux.jumathsji.ocr.TextRecognitionActivity;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.SearchView;
-import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import java.io.File;
-
 public class SecondActivity extends AppCompatActivity {
-    private static final int RC_OCR_CAPTURE = 9003;
+    // private static final int RC_OCR_CAPTURE = 9003;
 
-    private String current_tip = "";
-    private String current_answer = "";
+    // private String current_tip = "";
+    // private String current_answer = "";
 
-    private List<CardWithLines> current_cardList;
-    private int current_index;
+    // private List<CardWithLines> current_cardList;
+    // private int current_index;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /*
         setContentView(R.layout.activity_second);
 
         current_cardList = new ArrayList<>();
         current_index = 0;
 
         startOcr();
+        */
     }
 
     //Function call after click event on Answer Button
+    /*
     public void getSolution(View view) {
         Log.d("getSolution", "getSolution");
 
@@ -100,24 +77,28 @@ public class SecondActivity extends AppCompatActivity {
 
     // Start the Asynchronous Search
     public void startSearch(String id) {
-        new CardSearchTask(this).execute(id);
+        // CardSearchTask
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         //After result on Activity OCR display Card
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RC_OCR_CAPTURE && resultCode == CommonStatusCodes.SUCCESS && data != null) {
             Bundle extras = data.getExtras();
-            if (extras != null) fillListCard(extras.getParcelableArrayList("CARD_LIST"));
+            if (extras != null) {
+                fillListCard(extras.getParcelableArrayList("CARD_LIST"));
+            }
         }
-
     }
 
     //Return a list of x Cards in order to display them as a carousel
     public void fillListCard(List<CardWithLines> result) {
         current_cardList.clear();
 
-        if (result != null) current_cardList.addAll(result);
+        if (result != null) {
+            current_cardList.addAll(result);
+        }
 
         Button next_button = findViewById(R.id.display_next);
         if (current_cardList.size() > 1) {
@@ -184,23 +165,23 @@ public class SecondActivity extends AppCompatActivity {
     //Ideally a file should contain the names of Categories and their colors
     protected void selectColorType(CardWithLines cardWithLines) {
         String type = cardWithLines.card.title;
-        int color = getResources().getColor(R.color.colorTitleEspaces3D);
+        int color = ContextCompat.getColor(this, R.color.colorTitleEspaces3D);
 
         switch (type) {
             case "Espaces 3D":
-                color = getResources().getColor(R.color.colorTitleEspaces3D);
+                color = ContextCompat.getColor(this, R.color.colorTitleEspaces3D);
                 break;
             case "English Maths":
-                color = getResources().getColor(R.color.colorTitleEnglishMaths);
+                color = ContextCompat.getColor(this, R.color.colorTitleEnglishMaths);
                 break;
             case "Montagne de problème":
-                color = getResources().getColor(R.color.colorTitleMontagneDeProblèmes);
+                color = ContextCompat.getColor(this, R.color.colorTitleMontagneDeProblèmes);
                 break;
             case "Plaine de 2D":
-                color = getResources().getColor(R.color.colorTitlePlaineDe2D);
+                color = ContextCompat.getColor(this, R.color.colorTitlePlaineDe2D);
                 break;
             case "Vallée des nombres":
-                color = getResources().getColor(R.color.colorTitleValléeDesNombres);
+                color = ContextCompat.getColor(this, R.color.colorTitleValléeDesNombres);
                 break;
             default:
                 break;
@@ -235,7 +216,6 @@ public class SecondActivity extends AppCompatActivity {
                 return false;
             }
         });
-
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -243,18 +223,16 @@ public class SecondActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
-        switch (item.getItemId()) {
-
-            case R.id.action_goBack:
-                Log.d("Case goBack", "Go to Main Activity case chosen");
-                intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
-            case R.id.action_settings:
+        if (item.getItemId() == R.id.action_goBack) {
+            Log.d("Case goBack", "Go to Main Activity case chosen");
+            intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
+        if (item.getItemId() == R.id.action_settings) {
                 Log.d("Case Option", "Option case chosen");
                 return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
-
+    */
 }

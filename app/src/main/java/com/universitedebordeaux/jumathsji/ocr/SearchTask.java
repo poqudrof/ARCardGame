@@ -1,18 +1,10 @@
 package com.universitedebordeaux.jumathsji.ocr;
 
-import android.os.AsyncTask;
+public class SearchTask {
 
-import com.universitedebordeaux.jumathsji.db.AppDatabase;
-import com.universitedebordeaux.jumathsji.db.CardWithLines;
+}
 
-import java.lang.ref.WeakReference;
-import java.util.List;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
+/*
 // In charge of recognition from an Ocr result.
 // Uses the database and sometimes the CNN.
 public class SearchTask extends AsyncTask<String, Void, List<CardWithLines>> {
@@ -82,3 +74,4 @@ public class SearchTask extends AsyncTask<String, Void, List<CardWithLines>> {
         }
     }
 }
+*/

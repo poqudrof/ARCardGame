@@ -9,7 +9,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +16,7 @@ import java.util.Map;
 import static org.junit.Assert.*;
 
 public class similarityComputingTest{
-    private similarityComputing similarityComputing;
+    private SimilarityComputing similarityComputing;
 
     String a = "Lorem ipsum dolor sit amet."; // 5 words Lorem Ipsum
     String b = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eu."; // 10 words Lorem Ipsum

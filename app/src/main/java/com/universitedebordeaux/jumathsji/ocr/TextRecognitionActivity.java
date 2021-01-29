@@ -1,48 +1,19 @@
 package com.universitedebordeaux.jumathsji.ocr;
 
-import android.Manifest;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Matrix;
-import android.os.Bundle;
-import android.util.Log;
-import android.util.Size;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.Surface;
-import android.view.TextureView;
-import android.view.ViewGroup;
-import android.widget.SearchView;
-import android.widget.Toast;
+public class TextRecognitionActivity {
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.camera.core.CameraX;
-import androidx.camera.core.ImageAnalysis;
-import androidx.camera.core.ImageAnalysisConfig;
-import androidx.camera.core.Preview;
-import androidx.camera.core.PreviewConfig;
-import androidx.core.app.ActivityCompat;
-
-import com.google.android.gms.common.api.CommonStatusCodes;
-import com.google.firebase.FirebaseApp;
-import com.universitedebordeaux.jumathsji.MainActivity;
-import com.universitedebordeaux.jumathsji.R;
-import com.universitedebordeaux.jumathsji.db.CardWithLines;
-
-import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+}
 
 // Recognition and preview activity.
 // Build from an example of CameraX.
+/*
 public class TextRecognitionActivity extends AppCompatActivity {
     private static final String TAG = "OcrCaptureActivity";
 
     private static final int RC_HANDLE_CAMERA_PERM = 2;
 
     private TextureView mCameraView;
-    private ExecutorService mExecutor = Executors.newSingleThreadExecutor();
+    private final ExecutorService mExecutor = Executors.newSingleThreadExecutor();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,14 +21,16 @@ public class TextRecognitionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ocr);
 
         FirebaseApp.initializeApp(this);
-
         mCameraView = findViewById(R.id.camera_view);
 
         Log.i(TAG, "Ocr Capture activity started");
 
-        if (hasCameraPermissions()) mCameraView.post(this::startCamera);
-        else requestCameraPermission();
-
+        if (hasCameraPermissions()) {
+            mCameraView.post(this::startCamera);
+        }
+        else {
+            requestCameraPermission();
+        }
         mCameraView.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> updateTransform());
     }
 
@@ -92,9 +65,8 @@ public class TextRecognitionActivity extends AppCompatActivity {
     }
 
     private void startCamera() {
-
         // Setup Preview.
-        Preview preview = new Preview(new PreviewConfig.Builder().setTargetResolution(new Size(640, 480)).build());
+        Preview preview = new Preview.Builder().setTargetResolution(new Size(640, 480)).build();
 
         preview.setOnPreviewOutputUpdateListener(output -> {
             ViewGroup parent = (ViewGroup) mCameraView.getParent();
@@ -111,10 +83,10 @@ public class TextRecognitionActivity extends AppCompatActivity {
                 .setImageReaderMode(ImageAnalysis.ImageReaderMode.ACQUIRE_LATEST_IMAGE)
                 .build());
 
-        analysis.setAnalyzer(mExecutor, new TextAnalyzer(this));
+        analysis.setAnalyzer(mExecutor, new TextAnalyzer());
 
         // Here we go !
-        CameraX.bindToLifecycle(this, preview, analysis);
+        CameraX.bindToLifecircle(this, preview, analysis);
     }
 
     private float cameraRotationToDegrees(int rotation) {
@@ -129,7 +101,6 @@ public class TextRecognitionActivity extends AppCompatActivity {
                 return 270;
             default:
                 throw new IllegalArgumentException("Rotation must be 0, 90, 180, or 270.");
-
         }
     }
 
@@ -185,17 +156,17 @@ public class TextRecognitionActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
-        switch (item.getItemId()) {
+        final int id = item.getItemId();
 
-            case R.id.action_goBack:
-                Log.d("Case goBack", "Go to Main Activity case chosen");
-                intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
-            case R.id.action_settings:
-                Log.d("Case Option", "Option case chosen");
-                return true;
+        if (id == R.id.action_goBack) {
+            Log.d("Case goBack", "Go to Main Activity case chosen");
+            intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
         }
-
+        if (id == R.id.action_settings) {
+            Log.d("Case Option", "Option case chosen");
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -208,3 +179,4 @@ public class TextRecognitionActivity extends AppCompatActivity {
 
     }
 }
+*/

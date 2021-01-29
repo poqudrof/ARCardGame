@@ -9,9 +9,6 @@ import androidx.room.RoomDatabase;
 
 import org.yaml.snakeyaml.Yaml;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.List;
 
@@ -69,14 +66,14 @@ public abstract class AppDatabase extends RoomDatabase {
     {
         AppDatabase db = getInstance(context);
         Yaml yaml;
-        String[] rawFiles = {"e3dcm1", "emcm2"};
+        final String[] rawFiles = {"e3dcm1", "emcm2"};
 
         db.clearAllTables();
 
         Log.d("DB Loader", "res/raw");
 
         yaml = new Yaml(new CardConstructor());
-        for (String file : rawFiles) {
+        for (final String file : rawFiles) {
             List<CardYaml> cardYamlList;
             InputStream inputStream = context.getResources().openRawResource(context.getResources().
                     getIdentifier(file, "raw", context.getPackageName()));
@@ -86,15 +83,18 @@ public abstract class AppDatabase extends RoomDatabase {
 
                 db.cardDao().insertAll(CardYaml.getCards(cardYamlList));
                 db.lineDao().insertAll(CardYaml.getLines(cardYamlList));
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 Log.e("DB Loader", "File card malformed : " + file);
+                e.printStackTrace();
             }
         }
     }
 
     // Main getter.
     public static synchronized AppDatabase getInstance(Context context) {
-        if (instance == null) instance = create(context);
+        if (instance == null) {
+            instance = create(context);
+        }
         return instance;
     }
 }

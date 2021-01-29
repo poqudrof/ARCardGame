@@ -1,34 +1,18 @@
 package com.universitedebordeaux.jumathsji.ocr;
 
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.util.Log;
+public class TfInterpreter {
 
-import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.Tasks;
-import com.google.firebase.ml.common.FirebaseMLException;
-import com.google.firebase.ml.custom.FirebaseCustomLocalModel;
-import com.google.firebase.ml.custom.FirebaseModelDataType;
-import com.google.firebase.ml.custom.FirebaseModelInputOutputOptions;
-import com.google.firebase.ml.custom.FirebaseModelInputs;
-import com.google.firebase.ml.custom.FirebaseModelInterpreter;
-import com.google.firebase.ml.custom.FirebaseModelInterpreterOptions;
-import com.google.firebase.ml.custom.FirebaseModelOutputs;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ExecutionException;
+}
 
 // Infer the CNN classifier.
+/*
 public class TfInterpreter {
     private FirebaseModelInterpreter mInterpreter;
     private FirebaseModelInputOutputOptions mInputOutputOptions;
 
     // MobileNet Input : Image 224x244 RGB
-    private float[][][][] mInput = new float[1][224][224][3];
-
-    private List<String> mLabelList;
+    private final float[][][][] mInput = new float[1][224][224][3];
+    private final List<String> mLabelList;
 
     public TfInterpreter(String model_path, List<String> labelList) {
         mLabelList = labelList;
@@ -58,8 +42,8 @@ public class TfInterpreter {
     public void prepareTensorImage(Bitmap image) {
         Bitmap bitmap = Bitmap.createScaledBitmap(image, 224, 224, true);
         int batchNum = 0;
-        for (int x = 0; x < 224; x++) {
-            for (int y = 0; y < 224; y++) {
+        for (int x = 0; x < 224; ++x) {
+            for (int y = 0; y < 224; ++y) {
                 int pixel = bitmap.getPixel(x, y);
                 // Normalize channel values to [-1.0, 1.0]. Required by MobileNet.
                 mInput[batchNum][x][y][0] = (Color.red(pixel) - 127) / 128.0f;
@@ -101,7 +85,10 @@ public class TfInterpreter {
         for (int i = 0; i < probabilities.length; ++i)
             labelResultMap.put(mLabelList.get(i), probabilities[i]);
 
+        Optional<String> ret = labelResultMap.entrySet().stream().max(Map.Entry.comparingByValue()).map(Map.Entry::getKey);
+
         // Second, get the max.
-        return labelResultMap.entrySet().stream().max(Map.Entry.comparingByValue()).map(Map.Entry::getKey).get();
+        return ret.orElse("");
     }
 }
+*/

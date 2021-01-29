@@ -1,16 +1,13 @@
 package com.universitedebordeaux.jumathsji.download;
 
 import android.content.Context;
-import android.os.AsyncTask;
-import android.util.Log;
 
 import com.universitedebordeaux.jumathsji.db.AppDatabase;
 
-import java.io.File;
 import java.lang.ref.WeakReference;
 
 // Task to manages the database update mechanism.
-public class UpdateDBTask extends AsyncTask<String, Void, UpdateDBTask.Manifest> {
+public class UpdateDBTask {
     // private static final String MANIFEST = "manifest.yaml";
 
     // POJO to match Manifest file (manifest.yaml).
@@ -30,18 +27,15 @@ public class UpdateDBTask extends AsyncTask<String, Void, UpdateDBTask.Manifest>
 
     private final WeakReference<Context> mContext;
     // private final Yaml mParser;
-    private final PostUpdate mCallback;
 
-    public UpdateDBTask(Context context, PostUpdate callback) {
+    public UpdateDBTask(Context context) {
         mContext = new WeakReference<>(context);
         // mParser = new Yaml(new Constructor(Manifest.class));
-        mCallback = callback;
     }
 
     // This function temporarily replaces the original one that you can see below until
     // we have a new manifest online
-    @Override
-    public Manifest doInBackground(String... uri) {
+    public Manifest doInBackground(String uri) {
         AppDatabase.reload(mContext.get());
         // Return an empty manifest.
         return new Manifest();
@@ -218,14 +212,4 @@ public class UpdateDBTask extends AsyncTask<String, Void, UpdateDBTask.Manifest>
         Log.d("UpdateDBTask", "Entry Size : " + db.cardDao().getAll().size());
     }
     */
-
-    @Override
-    protected void onPostExecute(Manifest mf) {
-        if (mCallback != null) mCallback.updateDone(mf);
-    }
-
-    // Callback to do something after the update.
-    public interface PostUpdate {
-        void updateDone(Manifest mf);
-    }
 }

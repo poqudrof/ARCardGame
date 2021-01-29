@@ -1,28 +1,13 @@
 package com.universitedebordeaux.jumathsji.ui.camera;
 
-import android.Manifest;
-import android.content.Context;
-import android.content.res.Configuration;
-import android.util.AttributeSet;
-import android.util.Log;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
-import android.view.ViewGroup;
-
-import androidx.annotation.RequiresPermission;
-
-import com.google.android.gms.common.images.Size;
-import com.google.android.gms.vision.CameraSource;
-
-import java.io.IOException;
-
+/*
 public class CameraSourcePreview extends ViewGroup implements SurfaceHolder.Callback
 {
     private static final String TAG = "CameraSourcePreview";
 
-    private Context mContext;
+    private final Context mContext;
 
-    private SurfaceView mSurfaceView;
+    private final SurfaceView mSurfaceView;
     private CameraSource mCameraSource;
 
     private boolean mStartRequested;
@@ -50,11 +35,8 @@ public class CameraSourcePreview extends ViewGroup implements SurfaceHolder.Call
         if (mCameraSource != null)
         {
             Size size = mCameraSource.getPreviewSize();
-            if (size != null)
-            {
-                previewW = size.getWidth();
-                previewH = size.getHeight();
-            }
+            previewW = size.getWidth();
+            previewH = size.getHeight();
         }
 
         // Swap width and height sizes when in portrait, since it will be rotated 90 degrees
@@ -146,7 +128,9 @@ public class CameraSourcePreview extends ViewGroup implements SurfaceHolder.Call
     @RequiresPermission(Manifest.permission.CAMERA)
     public void start(CameraSource cameraSource) throws IOException, SecurityException
     {
-        if (cameraSource == null) stop();
+        if (cameraSource == null) {
+            stop();
+        }
         mCameraSource = cameraSource;
         if (mCameraSource != null)
         {
@@ -157,7 +141,9 @@ public class CameraSourcePreview extends ViewGroup implements SurfaceHolder.Call
 
     public void stop()
     {
-        if (mCameraSource != null) mCameraSource.stop();
+        if (mCameraSource != null) {
+            mCameraSource.stop();
+        }
     }
 
     public void release()
@@ -184,3 +170,4 @@ public class CameraSourcePreview extends ViewGroup implements SurfaceHolder.Call
         return mContext.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
     }
 }
+*/

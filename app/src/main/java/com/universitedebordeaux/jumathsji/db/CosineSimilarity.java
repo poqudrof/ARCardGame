@@ -1,13 +1,11 @@
 package com.universitedebordeaux.jumathsji.db;
 
-import androidx.annotation.NonNull;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class cosineSimilarity {
+public class CosineSimilarity {
     private static class Values {
         private int val1;
         private int val2;
@@ -15,14 +13,6 @@ public class cosineSimilarity {
         public Values(int a, int b) {
             this.val1 = a;
             this.val2 = b;
-        }
-
-        public int getVal1() {
-            return this.val1;
-        }
-
-        public int getVal2() {
-            return getVal2();
         }
 
         public void setVal1(int a) {
@@ -113,5 +103,4 @@ public class cosineSimilarity {
             }
         }
     }
-
 }
