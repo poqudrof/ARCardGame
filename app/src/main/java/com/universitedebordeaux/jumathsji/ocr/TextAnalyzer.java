@@ -1,93 +1,31 @@
 package com.universitedebordeaux.jumathsji.ocr;
 
-public class TextAnalyzer {
+import android.util.Log;
+import android.util.SparseArray;
 
-}
+import androidx.annotation.NonNull;
 
-/*
-// This analyzer acquires the frames from the camera.
-public class TextAnalyzer implements ImageAnalysis.Analyzer, OnSuccessListener<FirebaseVisionText> {
-    // Google OCR.
-    private FirebaseVisionTextRecognizer mDetector = FirebaseVision.getInstance().getOnDeviceTextRecognizer();
+import com.google.android.gms.vision.Detector;
+import com.google.android.gms.vision.text.TextBlock;
 
-    private TextRecognitionActivity mActivity;
-    private AtomicBoolean isBusy;
+public class TextAnalyzer implements Detector.Processor<TextBlock> {
 
-    private TfInterpreter mInterpreter;
-
-    public TextAnalyzer(TextRecognitionActivity activity) {
-        mActivity = activity;
-
-        // Used to slow down the process.
-        isBusy = new AtomicBoolean(false);
-
-        // CNN classifier : MobileNet, uses a TensorFlow Lite model.
-        mInterpreter = new TfInterpreter("model/e3dcm1.tflite", loadLabelsFromAsset(activity.getAssets(), "model/labels.txt"));
-    }
-
-    // Reads the label file and returns the list.
-    private List<String> loadLabelsFromAsset(AssetManager assetManager, String filename) {
-        try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(assetManager.open(filename)));
-            return br.lines().collect(Collectors.toList());
-        } catch (IOException e) {
-            Log.e("OCR", "Failed to load labels from file");
-            e.printStackTrace();
-        }
-
-        // Hardcoded backup
-        return Arrays.asList("e3dcm1q_1", "e3dcm1q_2", "e3dcm1q_3", "e3dcm1q_17");
-    }
-
-    private int degreesToFirebaseRotation(int degrees) {
-        switch (degrees) {
-            case 0:
-                return FirebaseVisionImageMetadata.ROTATION_0;
-            case 90:
-                return FirebaseVisionImageMetadata.ROTATION_90;
-            case 180:
-                return FirebaseVisionImageMetadata.ROTATION_180;
-            case 270:
-                return FirebaseVisionImageMetadata.ROTATION_270;
-            default:
-                throw new IllegalArgumentException("Rotation must be 0, 90, 180, or 270.");
-        }
+    @Override
+    public void release() {
     }
 
     @Override
-    // Get the frame and start the process.
-    public void analyze(ImageProxy imageProxy, int degrees) {
-        if (imageProxy == null || imageProxy.getImage() == null) return;
+    public void receiveDetections(@NonNull Detector.Detections<TextBlock> detections) {
+        final SparseArray<TextBlock> items = detections.getDetectedItems();
 
-        // Send frame to the OCR one by one.
-        if (isBusy.compareAndSet(false, true)) {
-            Image mediaImage = imageProxy.getImage();
-            FirebaseVisionImage image = FirebaseVisionImage.fromMediaImage(mediaImage, degreesToFirebaseRotation(degrees));
-
-            // Always prepare the CNN classifier, we don't know if OCR will be enough.
-            mInterpreter.prepareTensorImage(image.getBitmap());
-
-            // Runs the OCR.
-            mDetector.processImage(image)
-                    .addOnSuccessListener(this)
-                    .addOnCompleteListener(result -> isBusy.set(false))
-                    .addOnFailureListener(result -> Log.e("OCR", "Text Recognition failed : " + result.getMessage()));
+        if (items.size() != 0) {
+            StringBuilder stringBuilder = new StringBuilder();
+            for (int i = 0; i < items.size(); ++i) {
+                TextBlock item = items.valueAt(i);
+                stringBuilder.append(item.getValue());
+                stringBuilder.append("\n");
+            }
+            Log.i("Result", stringBuilder.toString());
         }
     }
-
-    @Override
-    // The OCR found something.
-    public void onSuccess(FirebaseVisionText result) {
-
-        // Transforms line blocks into a single line list.
-        String[] lines = result.getTextBlocks().stream()
-                .map(FirebaseVisionText.TextBlock::getLines)
-                .flatMap(List::stream)
-                .map(line -> line.getText())
-                .toArray(String[]::new);
-
-        // Start the asynchronous recognition task.
-        new SearchTask(mActivity, mInterpreter).execute(lines);
-    }
 }
-*/
