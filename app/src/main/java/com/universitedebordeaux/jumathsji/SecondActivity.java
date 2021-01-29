@@ -1,28 +1,41 @@
 package com.universitedebordeaux.jumathsji;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.universitedebordeaux.jumathsji.db.CardWithLines;
+import com.universitedebordeaux.jumathsji.ocr.TextRecognitionActivity;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class SecondActivity extends AppCompatActivity {
-    // private static final int RC_OCR_CAPTURE = 9003;
+    private static final int RC_OCR_CAPTURE = 9003;
 
-    // private String current_tip = "";
-    // private String current_answer = "";
+    private String currentTip = "";
+    private String currentAnswer = "";
 
-    // private List<CardWithLines> current_cardList;
-    // private int current_index;
+    private List<CardWithLines> currentCardList;
+    private int currentIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /*
+        setContentView(R.layout.activity_main);
         setContentView(R.layout.activity_second);
 
-        current_cardList = new ArrayList<>();
-        current_index = 0;
+        currentCardList = new ArrayList<>();
+        currentIndex = 0;
 
         startOcr();
-        */
+    }
+
+    private void startOcr()
+    {
+        Intent intent = new Intent(this, TextRecognitionActivity.class);
+
+        startActivityForResult(intent, RC_OCR_CAPTURE);
     }
 
     //Function call after click event on Answer Button
@@ -67,12 +80,6 @@ public class SecondActivity extends AppCompatActivity {
 
         displayCard(current_cardList.get(current_index));
         selectColorType(current_cardList.get(current_index));
-    }
-
-    //Start the activity OCR
-    private void startOcr() {
-        Intent intent = new Intent(this, TextRecognitionActivity.class);
-        startActivityForResult(intent, RC_OCR_CAPTURE);
     }
 
     // Start the Asynchronous Search
