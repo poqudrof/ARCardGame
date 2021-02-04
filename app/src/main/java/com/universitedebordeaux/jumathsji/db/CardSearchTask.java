@@ -5,6 +5,8 @@ import android.util.Log;
 import com.universitedebordeaux.jumathsji.SecondActivity;
 
 import java.lang.ref.WeakReference;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 // Asynchronous task used to retrieve a complete card.
 // By complete, we mean, which contains its text so a CardWithLines.
@@ -30,10 +32,8 @@ public class CardSearchTask  {
     public void onPostExecute(CardWithLines cardWithLines) {
         SecondActivity activity = mRefActivity.get();
 
-        /*
         if (cardWithLines != null && activity != null) {
             activity.fillListCard(Stream.of(cardWithLines).collect(Collectors.toList()));
         }
-        */
     }
 }

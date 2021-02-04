@@ -1,14 +1,34 @@
 package com.universitedebordeaux.jumathsji;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.core.content.ContextCompat;
+
+import com.google.android.gms.common.api.CommonStatusCodes;
+import com.universitedebordeaux.jumathsji.db.Card;
+import com.universitedebordeaux.jumathsji.db.CardSearchTask;
 import com.universitedebordeaux.jumathsji.db.CardWithLines;
 import com.universitedebordeaux.jumathsji.ocr.TextRecognitionActivity;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class SecondActivity extends AppCompatActivity {
     private static final int RC_OCR_CAPTURE = 9003;
@@ -22,29 +42,19 @@ public class SecondActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         setContentView(R.layout.activity_second);
 
         currentCardList = new ArrayList<>();
         currentIndex = 0;
-
         startOcr();
     }
 
-    private void startOcr()
-    {
-        Intent intent = new Intent(this, TextRecognitionActivity.class);
-
-        startActivityForResult(intent, RC_OCR_CAPTURE);
-    }
-
     //Function call after click event on Answer Button
-    /*
     public void getSolution(View view) {
         Log.d("getSolution", "getSolution");
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(current_answer);
+        builder.setMessage(currentAnswer);
         builder.setTitle("Réponse");
 
         AlertDialog dialog = builder.create();
@@ -56,7 +66,7 @@ public class SecondActivity extends AppCompatActivity {
         Log.d("getHelp", "getHelp");
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(current_tip);
+        builder.setMessage(currentTip);
         builder.setTitle("Aide");
 
         AlertDialog dialog = builder.create();
@@ -73,24 +83,40 @@ public class SecondActivity extends AppCompatActivity {
     public void nextCard(View view) {
         Log.d("next card", "display next card of the list current");
 
-        current_index++;
-        if (current_index == current_cardList.size()) {
-            current_index = 0;
+        currentIndex++;
+        if (currentIndex == currentCardList.size()) {
+            currentIndex = 0;
         }
 
-        displayCard(current_cardList.get(current_index));
-        selectColorType(current_cardList.get(current_index));
+        displayCard(currentCardList.get(currentIndex));
+        selectColorType(currentCardList.get(currentIndex));
+    }
+
+    //Start the activity OCR
+    private void startOcr() {
+        Intent intent = new Intent(this, TextRecognitionActivity.class);
+
+        startActivityForResult(intent, RC_OCR_CAPTURE);
     }
 
     // Start the Asynchronous Search
     public void startSearch(String id) {
-        // CardSearchTask
+        ExecutorService service = Executors.newSingleThreadExecutor();
+
+        service.execute(() -> {
+            CardSearchTask task = new CardSearchTask(this);
+            CardWithLines cardWithLines;
+
+            cardWithLines = task.doInBackground(id);
+            task.onPostExecute(cardWithLines);
+        });
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         //After result on Activity OCR display Card
         super.onActivityResult(requestCode, resultCode, data);
+
         if (requestCode == RC_OCR_CAPTURE && resultCode == CommonStatusCodes.SUCCESS && data != null) {
             Bundle extras = data.getExtras();
             if (extras != null) {
@@ -101,21 +127,21 @@ public class SecondActivity extends AppCompatActivity {
 
     //Return a list of x Cards in order to display them as a carousel
     public void fillListCard(List<CardWithLines> result) {
-        current_cardList.clear();
+        currentCardList.clear();
 
         if (result != null) {
-            current_cardList.addAll(result);
+            currentCardList.addAll(result);
         }
 
         Button next_button = findViewById(R.id.display_next);
-        if (current_cardList.size() > 1) {
+        if (currentCardList.size() > 1) {
             next_button.setVisibility(View.VISIBLE);
         } else {
             next_button.setVisibility(View.INVISIBLE);
         }
-        current_index = 0;
-        displayCard(current_cardList.get(0));
-        selectColorType(current_cardList.get(0));
+        currentIndex = 0;
+        displayCard(currentCardList.get(0));
+        selectColorType(currentCardList.get(0));
     }
 
     //Display the card from the Bundle Result
@@ -141,11 +167,11 @@ public class SecondActivity extends AppCompatActivity {
         card_numberA.setText(tmp);
 
         //Save the answer and tip for later
-        current_answer = card.answer;
-        current_tip = card.tip;
+        currentAnswer = card.answer;
+        currentTip = card.tip;
 
         //Set Visible the Tip Button if there is
-        if (current_tip == null) {
+        if (currentTip == null) {
             card_numberA.setVisibility(View.INVISIBLE);
         } else {
             card_numberA.setVisibility(View.VISIBLE);
@@ -172,23 +198,23 @@ public class SecondActivity extends AppCompatActivity {
     //Ideally a file should contain the names of Categories and their colors
     protected void selectColorType(CardWithLines cardWithLines) {
         String type = cardWithLines.card.title;
-        int color = ContextCompat.getColor(this, R.color.colorTitleEspaces3D);
+        int color = ContextCompat.getColor(getApplicationContext(), R.color.colorTitleEspaces3D);
 
         switch (type) {
             case "Espaces 3D":
-                color = ContextCompat.getColor(this, R.color.colorTitleEspaces3D);
+                color = ContextCompat.getColor(getApplicationContext(), R.color.colorTitleEspaces3D);
                 break;
             case "English Maths":
-                color = ContextCompat.getColor(this, R.color.colorTitleEnglishMaths);
+                color = ContextCompat.getColor(getApplicationContext(), R.color.colorTitleEnglishMaths);
                 break;
             case "Montagne de problème":
-                color = ContextCompat.getColor(this, R.color.colorTitleMontagneDeProblèmes);
+                color = ContextCompat.getColor(getApplicationContext(), R.color.colorTitleMontagneDeProblèmes);
                 break;
             case "Plaine de 2D":
-                color = ContextCompat.getColor(this, R.color.colorTitlePlaineDe2D);
+                color = ContextCompat.getColor(getApplicationContext(), R.color.colorTitlePlaineDe2D);
                 break;
             case "Vallée des nombres":
-                color = ContextCompat.getColor(this, R.color.colorTitleValléeDesNombres);
+                color = ContextCompat.getColor(getApplicationContext(), R.color.colorTitleValléeDesNombres);
                 break;
             default:
                 break;
@@ -223,23 +249,25 @@ public class SecondActivity extends AppCompatActivity {
                 return false;
             }
         });
+
         return super.onCreateOptionsMenu(menu);
     }
 
     //Used to select an action in the toolbar
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
         Intent intent;
-        if (item.getItemId() == R.id.action_goBack) {
+
+        if (id == R.id.action_goBack) {
             Log.d("Case goBack", "Go to Main Activity case chosen");
             intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }
-        if (item.getItemId() == R.id.action_settings) {
+        if (id == R.id.action_settings) {
                 Log.d("Case Option", "Option case chosen");
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
-    */
 }

@@ -1,18 +1,20 @@
 package com.universitedebordeaux.jumathsji.ocr;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.SparseArray;
 import android.view.SurfaceView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.CameraSource;
-import com.google.android.gms.vision.Detector;
-import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
+import com.universitedebordeaux.jumathsji.MainActivity;
 import com.universitedebordeaux.jumathsji.R;
+import com.universitedebordeaux.jumathsji.db.CardWithLines;
+
+import java.util.List;
 
 // Recognition and preview activity.
 public class TextRecognitionActivity extends AppCompatActivity {
@@ -38,7 +40,28 @@ public class TextRecognitionActivity extends AppCompatActivity {
                     .setAutoFocusEnabled(true)
                     .build();
             cameraView.getHolder().addCallback(new SurfaceHolderCallback(this, cameraView, cameraSource));
-            textRecognizer.setProcessor(new TextAnalyzer());
+            textRecognizer.setProcessor(new TextAnalyzer(this));
         }
+    }
+
+    // Send the recognition result to the activity who call this.
+    public void doOnResult(List<CardWithLines> cardsWithLines) {
+        Intent data = new Intent();
+        Bundle bundle = new Bundle();
+
+        bundle.putParcelableArrayList("CARD_LIST", CardWithLines.toParcelableList(cardsWithLines));
+
+        data.putExtras(bundle);
+        setResult(CommonStatusCodes.SUCCESS, data);
+        finish();
+    }
+
+    //Override the behaviour of the back button in the activity
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MainActivity.class);
+
+        startActivity(intent);
+        finish();
     }
 }
