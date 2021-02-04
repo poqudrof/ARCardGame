@@ -198,3 +198,13 @@
   tip: "aide"
   number: 20
   cnn: off
+- id: "e3dcm1q_21"
+  type: "question"
+  title: "Espaces 3D"
+  text:
+    - "Combien un cylindre a-t-il de"
+    - "sommets sur cette figure ?"
+  answer: 52
+  tip: "epitech"
+  number: 21
+  cnn: off

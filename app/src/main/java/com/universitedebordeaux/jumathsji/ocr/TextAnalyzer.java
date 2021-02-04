@@ -11,6 +11,8 @@ import com.universitedebordeaux.jumathsji.db.CardWithLines;
 import java.lang.ref.WeakReference;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class TextAnalyzer implements Detector.Processor<TextBlock> {
 
@@ -36,18 +38,20 @@ public class TextAnalyzer implements Detector.Processor<TextBlock> {
             }
         }
         if (!list.isEmpty()) {
-            new Thread(() -> {
+            ExecutorService executorService = Executors.newSingleThreadExecutor();
+
+            executorService.execute(() -> {
                 TextRecognitionActivity activity = mRefActivity.get();
                 SearchTask task = new SearchTask(activity.getApplicationContext());
                 List<CardWithLines> cards;
 
-                cards = task.doInBackground((String[]) list.toArray());
+                cards = task.doInBackground((String[]) list.toArray(new String[0]));
                 activity.runOnUiThread(() -> {
                     if (cards != null && !cards.isEmpty()) {
                         activity.doOnResult(cards);
                     }
                 });
-            }).start();
+            });
         }
     }
 }
