@@ -1,11 +1,14 @@
 package com.universitedebordeaux.jumathsji.ocr;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.SurfaceView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.CameraSource;
@@ -14,10 +17,14 @@ import com.universitedebordeaux.jumathsji.MainActivity;
 import com.universitedebordeaux.jumathsji.R;
 import com.universitedebordeaux.jumathsji.db.CardWithLines;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 // Recognition and preview activity.
 public class TextRecognitionActivity extends AppCompatActivity {
+
+    public static final int requestCameraPermissionID = 1001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +47,18 @@ public class TextRecognitionActivity extends AppCompatActivity {
                     .build();
             cameraView.getHolder().addCallback(new SurfaceHolderCallback(this, cameraView, cameraSource));
             textRecognizer.setProcessor(new TextAnalyzer(this));
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull @NotNull String[] permissions, @NonNull @NotNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == requestCameraPermissionID) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                recreate();
+            else
+                onBackPressed();
         }
     }
 

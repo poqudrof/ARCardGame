@@ -28,13 +28,11 @@ public class SurfaceHolderCallback implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceCreated(@NonNull SurfaceHolder holder) {
-        final int requestCameraPermissionID = 1001;
-
         try {
             if (checkCameraPermission()) {
                 ActivityCompat.requestPermissions(activityReference.get(),
                         new String[] { Manifest.permission.CAMERA },
-                        requestCameraPermissionID);
+                        TextRecognitionActivity.requestCameraPermissionID);
                 return;
             }
             cameraSourceReference.get().start(cameraViewReference.get().getHolder());
