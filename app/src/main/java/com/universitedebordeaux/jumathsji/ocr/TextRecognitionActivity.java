@@ -36,7 +36,6 @@ public class TextRecognitionActivity extends AppCompatActivity {
             cameraSource = new CameraSource.Builder(getApplicationContext(), textRecognizer)
                     .setFacing(CameraSource.CAMERA_FACING_BACK)
                     .setRequestedPreviewSize(1280, 1024)
-                    .setRequestedFps(15.0f)
                     .setAutoFocusEnabled(true)
                     .build();
             cameraView.getHolder().addCallback(new SurfaceHolderCallback(this, cameraView, cameraSource));
