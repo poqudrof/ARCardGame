@@ -23,4 +23,5 @@
 
     <string name="database_url">http://lorian.corbel.emi.u-bordeaux.fr/jumathsji/</string>
     <string name="database_phone_path">/data/data/com.universitedebordeaux.jumathsji/files/</string>
+    <string name="no_data_stored">Il n\'y a aucune données sauvégardées. Veuillez mettre à jour le deck de carte.</string>
 </resources>

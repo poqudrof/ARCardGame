@@ -15,11 +15,11 @@ public class CardWithLines implements Parcelable {
     @Embedded
     public Card card;
 
-    @Relation(parentColumn = "id", entityColumn = "cardId")
+    @Relation(parentColumn = "id", entityColumn = "card_id")
     public List<Line> lines;
 
     public String getText() {
-        return lines.stream().map(line -> line.contents).collect(Collectors.joining("\n"));
+        return lines.stream().map(line -> line.line).collect(Collectors.joining("\n"));
     }
 
     public CardWithLines() {

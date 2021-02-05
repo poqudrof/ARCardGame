@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -18,10 +19,15 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.universitedebordeaux.jumathsji.db.AppDatabase;
 import com.universitedebordeaux.jumathsji.download.UpdateDBTask;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
+    public static AppDatabase appDatabase = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Download db button
         ImageButton downloadJumathsji = findViewById(R.id.downloadButton);
-        downloadJumathsji.setOnClickListener(view -> updateDatabase(getResources().getString(R.string.database_url)));
+        downloadJumathsji.setOnClickListener(view -> updateDatabase());
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -75,28 +81,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @SuppressLint("SetTextI18n")
-    private void updateDatabase(String uri) {
+    private void updateDatabase() {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
         UpdateDBTask updater = new UpdateDBTask(getApplicationContext());
 
-        new Thread(() -> {
-            updater.doInBackground(uri);
+        executorService.execute(() -> {
+            boolean res = updater.doInBackground();
+
             runOnUiThread(() -> {
-                // String[] names = new File(context.getExternalFilesDir(mf.name), "data").list();;
-                // StringBuilder show = new StringBuilder();
                 TextView tv = findViewById(R.id.textView);
 
-                // if (names == null || names.length == 0) {
-                //    show.append("BDD Vide !");
-                // } else {
-                //     show.append("La BDD est composée des fichiers :\n");
-                //    for (String file : names) {
-                //        show.append(file).append("\n");
-                //    }
-                //}
-                // tv.setText(show.toString());
-                tv.setText("La BDD est OK");
+                if (res) {
+                    tv.setText("La BDD est OK.");
+                } else {
+                    Toast.makeText(this, R.string.no_data_stored, Toast.LENGTH_LONG).show();
+                    tv.setText("La BDD est KO.");
+                }
             });
-        }).start();
+        });
     }
 
     public void startJumathsji(View view) {

@@ -9,44 +9,56 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
-// Class (POJO) that matches to the Card table.
+// Class that matches to the Card table in the .db file.
 public class Card implements Parcelable {
-
-    public Card(@NonNull String id) {
-        this.id = id;
-    }
 
     @PrimaryKey
     @NonNull
     @ColumnInfo
     public String id;
 
+    @NonNull
     @ColumnInfo
     public String type;
 
+    @NonNull
     @ColumnInfo
     public String title;
 
+    @NonNull
     @ColumnInfo
     public String answer;
-
-    @ColumnInfo
-    public String tip;
 
     @ColumnInfo
     public int number;
 
     @ColumnInfo
-    public boolean cnn;
+    public String tip;
+
+    @ColumnInfo(name = "image_path")
+    public String imagePath;
+
+    @ColumnInfo(name = "sound_path")
+    public String soundPath;
+
+    public Card(@NonNull String id, @NonNull String type, @NonNull String title,
+                @NonNull String answer, int number) {
+        this.id = id;
+        this.type = type;
+        this.title = title;
+        this.answer = answer;
+        this.number = number;
+    }
 
     protected Card(Parcel in) {
         id = in.readString();
         type = in.readString();
         title = in.readString();
         answer = in.readString();
-        tip = in.readString();
         number = in.readInt();
-        cnn = in.readByte() != 0;
+        tip = in.readString();
+        imagePath = in.readString();
+        soundPath = in.readString();
     }
 
     public static final Creator<Card> CREATOR = new Creator<Card>() {
@@ -72,8 +84,9 @@ public class Card implements Parcelable {
         dest.writeString(type);
         dest.writeString(title);
         dest.writeString(answer);
-        dest.writeString(tip);
         dest.writeInt(number);
-        dest.writeByte((byte) (cnn ? 1 : 0));
+        dest.writeString(tip);
+        dest.writeString(imagePath);
+        dest.writeString(soundPath);
     }
 }

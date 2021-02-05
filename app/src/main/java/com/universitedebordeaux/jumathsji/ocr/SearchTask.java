@@ -1,8 +1,6 @@
 package com.universitedebordeaux.jumathsji.ocr;
 
-import android.content.Context;
-
-import com.universitedebordeaux.jumathsji.db.AppDatabase;
+import com.universitedebordeaux.jumathsji.MainActivity;
 import com.universitedebordeaux.jumathsji.db.CardWithLines;
 
 import java.util.Arrays;
@@ -15,20 +13,14 @@ import java.util.stream.Stream;
 
 public class SearchTask {
 
-    private final AppDatabase mDB;
-
-    public SearchTask(Context context) {
-        mDB = AppDatabase.getInstance(context);
-    }
-
     public List<CardWithLines> doInBackground(String[] lines) {
-        if (lines == null || mDB == null) {
+        if (lines == null || MainActivity.appDatabase == null) {
             return null;
         }
 
         // Build Card Map : card id with recognition score.
         Map<String, Long> cardMap = Arrays.stream(lines)
-                .map(mDB.lineDao()::getLinesByContents)
+                .map(MainActivity.appDatabase.lineDao()::getLinesByContents)
                 .flatMap(List::stream)
                 .map(line -> line.cardId)
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
@@ -60,6 +52,6 @@ public class SearchTask {
     }
 
     private CardWithLines pick(String cardId) {
-        return mDB.cardDao().getCardWithLines(cardId);
+        return MainActivity.appDatabase.cardDao().getCardWithLines(cardId);
     }
 }

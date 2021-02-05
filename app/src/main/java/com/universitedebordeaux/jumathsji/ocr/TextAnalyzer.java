@@ -42,10 +42,10 @@ public class TextAnalyzer implements Detector.Processor<TextBlock> {
 
             executorService.execute(() -> {
                 TextRecognitionActivity activity = mRefActivity.get();
-                SearchTask task = new SearchTask(activity.getApplicationContext());
+                SearchTask task = new SearchTask();
                 List<CardWithLines> cards;
 
-                cards = task.doInBackground((String[]) list.toArray(new String[0]));
+                cards = task.doInBackground(list.toArray(new String[0]));
                 activity.runOnUiThread(() -> {
                     if (cards != null && !cards.isEmpty()) {
                         activity.doOnResult(cards);

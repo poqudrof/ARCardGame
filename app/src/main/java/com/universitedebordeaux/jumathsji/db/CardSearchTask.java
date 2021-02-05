@@ -2,6 +2,7 @@ package com.universitedebordeaux.jumathsji.db;
 
 import android.util.Log;
 
+import com.universitedebordeaux.jumathsji.MainActivity;
 import com.universitedebordeaux.jumathsji.SecondActivity;
 
 import java.lang.ref.WeakReference;
@@ -18,15 +19,13 @@ public class CardSearchTask  {
     }
 
     public CardWithLines doInBackground(String id) {
-        AppDatabase db;
         SecondActivity activity = mRefActivity.get();
 
         Log.d(CardSearchTask.class.getSimpleName(), "Searching cards.");
         if (activity == null) {
             return null;
         }
-        db = AppDatabase.getInstance(activity.getApplicationContext());
-        return db.cardDao().getCardWithLines(id);
+        return MainActivity.appDatabase.cardDao().getCardWithLines(id);
     }
 
     public void onPostExecute(CardWithLines cardWithLines) {

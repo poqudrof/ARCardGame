@@ -3,31 +3,35 @@ package com.universitedebordeaux.jumathsji.db;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
-// Class (POJO) that matches to the Line table.
+// Class that matches to the Line table in the .db file.
 public class Line implements Parcelable {
+
     @PrimaryKey(autoGenerate = true)
     public int id;
 
-    @ColumnInfo
+    @NonNull
+    @ColumnInfo(name = "card_id")
     public String cardId;
 
+    @NonNull
     @ColumnInfo
-    public String contents;
+    public String line;
 
-    public Line(String cardId, String contents) {
+    public Line(@NonNull String cardId, @NonNull String line) {
         this.cardId = cardId;
-        this.contents = contents;
+        this.line = line;
     }
 
     protected Line(Parcel in) {
         id = in.readInt();
         cardId = in.readString();
-        contents = in.readString();
+        line = in.readString();
     }
 
     public static final Creator<Line> CREATOR = new Creator<Line>() {
@@ -51,6 +55,6 @@ public class Line implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
         dest.writeString(cardId);
-        dest.writeString(contents);
+        dest.writeString(line);
     }
 }
