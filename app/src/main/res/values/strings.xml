@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">Jumathsji</string>
+    <string name="app_name">Joue-Maths-Gie</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Jumathsji</string>
+    <string name="nav_header_title">Joue-Maths-Gie</string>
     <string name="nav_header_subtitle">jumathsji.studio@jumathsji.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
@@ -13,15 +13,15 @@
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
-    <string name="title_activity_second">Jumathsji</string>
+    <string name="title_activity_second">Joue-Maths-Gie</string>
     <string name="validation">Validation</string>
     <string name="input_code">Code de la carte</string>
     <string name="MajBDD">Veuillez mettre à jour la BDD</string>
-    <string name="download_button_text">Mettre\nà jour\n Jumathsji</string>
+    <string name="download_button_text">Mettre\nà jour\n Joue-Maths-Gie</string>
 
     <string name="action_search">Recherche de la cartes</string>
 
     <string name="database_url">http://lorian.corbel.emi.u-bordeaux.fr/jumathsji/</string>
-    <string name="database_phone_path">/data/data/com.universitedebordeaux.jumathsji/files/</string>
+    <string name="database_phone_path">/data/data/com.universitedebordeaux.joue_maths_gie/files/</string>
     <string name="no_data_stored">Il n\'y a aucune données sauvégardées. Veuillez mettre à jour le deck de carte.</string>
 </resources>
