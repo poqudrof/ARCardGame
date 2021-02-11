@@ -1,11 +1,13 @@
 package com.universitedebordeaux.joue_maths_gie.ocr;
 
+import android.util.Log;
 import android.util.SparseArray;
 
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.text.TextBlock;
+import com.universitedebordeaux.joue_maths_gie.MainActivity;
 import com.universitedebordeaux.joue_maths_gie.db.CardWithLines;
 
 import java.lang.ref.WeakReference;
@@ -46,11 +48,16 @@ public class TextAnalyzer implements Detector.Processor<TextBlock> {
                 List<CardWithLines> cards;
 
                 cards = task.doInBackground(list.toArray(new String[0]));
-                activity.runOnUiThread(() -> {
-                    if (cards != null && !cards.isEmpty()) {
-                        activity.doOnResult(cards);
+                if (cards != null && !cards.isEmpty()) {
+                    for (final CardWithLines card : cards) {
+                        Log.d(getClass().getSimpleName(), card.getText());
                     }
-                });
+                }
+                // activity.runOnUiThread(() -> {
+                //     if (cards != null && !cards.isEmpty()) {
+                //         activity.doOnResult(cards);
+                //     }
+                // });
             });
         }
     }

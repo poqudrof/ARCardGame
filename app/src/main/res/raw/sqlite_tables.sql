@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS Line (
     card_id     TEXT        NOT NULL,
     line        TEXT        NOT NULL,
     FOREIGN KEY (card_id) REFERENCES Card(id)
+        ON UPDATE NO ACTION
         ON DELETE CASCADE
 );
 

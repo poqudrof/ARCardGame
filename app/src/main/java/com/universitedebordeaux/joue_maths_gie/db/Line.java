@@ -4,11 +4,15 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
+import androidx.room.*;
 
-@Entity
+@Entity(
+        foreignKeys = @ForeignKey(
+                entity = Card.class,
+                parentColumns = "id",
+                childColumns = "card_id",
+                onDelete = ForeignKey.CASCADE)
+)
 // Class that matches to the Line table in the .db file.
 public class Line implements Parcelable {
 
@@ -16,7 +20,7 @@ public class Line implements Parcelable {
     public int id;
 
     @NonNull
-    @ColumnInfo(name = "card_id")
+    @ColumnInfo(name = "card_id", index = true)
     public String cardId;
 
     @NonNull

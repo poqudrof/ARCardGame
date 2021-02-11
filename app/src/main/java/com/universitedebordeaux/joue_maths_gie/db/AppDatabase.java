@@ -6,11 +6,13 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import java.io.File;
+
 // Singleton class to manage the SQLite database, cannot be called in the graphics thread.
 @Database(entities = {Card.class, Line.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
-    public static final String DB_NAME = "Joue_Maths_Gie/JMG.db";
+    public static final String DB_NAME = "joue_maths_gie.db";
 
     // DAO Card getter.
     public abstract CardSQLDao cardDao();

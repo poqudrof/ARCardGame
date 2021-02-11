@@ -16,7 +16,7 @@ public class UpdateDBTask {
     // private static final String MANIFEST = "manifest.yaml";
     // TODO: This link will be the temporary link where the manifest will be stored in the future.
     // private static final String MANIFEST_URL = "https://www.devlmx.fr/joue_maths_gie/manifest/" + MANIFEST;
-    private static final String ASSETS_DIR_NAME = "Joue_Maths_Gie";
+    private static final String ASSETS_DIR_NAME = "database";
 
     // The Manifest file.
     /*

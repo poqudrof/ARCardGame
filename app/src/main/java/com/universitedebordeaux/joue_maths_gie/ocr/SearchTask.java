@@ -22,7 +22,7 @@ public class SearchTask {
         Map<String, Long> cardMap = Arrays.stream(lines)
                 .map(MainActivity.appDatabase.lineDao()::getLinesByContents)
                 .flatMap(List::stream)
-                .map(line -> line.cardId)
+                .map(line -> line.line)
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 
         String cardId = null;
