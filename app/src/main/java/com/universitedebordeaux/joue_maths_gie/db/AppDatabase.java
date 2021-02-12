@@ -1,17 +1,19 @@
 package com.universitedebordeaux.joue_maths_gie.db;
 
 import android.content.Context;
-
+import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-
-import java.io.File;
+import androidx.room.migration.Migration;
+import androidx.sqlite.db.SupportSQLiteDatabase;
+import org.jetbrains.annotations.NotNull;
 
 // Singleton class to manage the SQLite database, cannot be called in the graphics thread.
 @Database(entities = {Card.class, Line.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
+    public static AppDatabase db = null;
     public static final String DB_NAME = "joue_maths_gie.db";
 
     // DAO Card getter.
@@ -21,9 +23,9 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract LineSQLDao lineDao();
 
     // Import the new database
-    public static AppDatabase create(Context context, String Filename) {
+    public static AppDatabase create(Context context) {
         return Room.databaseBuilder(context, AppDatabase.class, DB_NAME)
-                   .createFromAsset(Filename)
+                   .createFromAsset(DB_NAME)
                    .build();
     }
 }

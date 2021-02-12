@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -16,10 +15,8 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.universitedebordeaux.joue_maths_gie.db.AppDatabase;
 import com.universitedebordeaux.joue_maths_gie.download.UpdateDBTask;
 
 import java.util.concurrent.ExecutorService;
@@ -27,7 +24,6 @@ import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
-    public static AppDatabase appDatabase = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +37,11 @@ public class MainActivity extends AppCompatActivity {
 
         // Launch game button
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(this::startJumathsji);
+        fab.setOnClickListener(this::start);
 
         // Download db button
-        ImageButton downloadJumathsji = findViewById(R.id.downloadButton);
-        downloadJumathsji.setOnClickListener(view -> updateDatabase());
+        ImageButton download = findViewById(R.id.downloadButton);
+        download.setOnClickListener(view -> updateDatabase());
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -59,11 +55,6 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
     }
 
     @Override
@@ -101,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void startJumathsji(View view) {
+    public void start(View view) {
         Intent intent = new Intent(this, SecondActivity.class);
         startActivity(intent);
     }

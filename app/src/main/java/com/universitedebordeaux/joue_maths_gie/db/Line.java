@@ -16,8 +16,9 @@ import androidx.room.*;
 // Class that matches to the Line table in the .db file.
 public class Line implements Parcelable {
 
+    @NonNull
     @PrimaryKey(autoGenerate = true)
-    public int id;
+    public Integer id;
 
     @NonNull
     @ColumnInfo(name = "card_id", index = true)
@@ -27,7 +28,8 @@ public class Line implements Parcelable {
     @ColumnInfo
     public String line;
 
-    public Line(@NonNull String cardId, @NonNull String line) {
+    public Line(@NonNull Integer id, @NonNull String cardId, @NonNull String line) {
+        this.id = id;
         this.cardId = cardId;
         this.line = line;
     }

@@ -1,6 +1,6 @@
 package com.universitedebordeaux.joue_maths_gie.ocr;
 
-import com.universitedebordeaux.joue_maths_gie.MainActivity;
+import com.universitedebordeaux.joue_maths_gie.db.AppDatabase;
 import com.universitedebordeaux.joue_maths_gie.db.CardWithLines;
 
 import java.util.Arrays;
@@ -14,15 +14,15 @@ import java.util.stream.Stream;
 public class SearchTask {
 
     public List<CardWithLines> doInBackground(String[] lines) {
-        if (lines == null || MainActivity.appDatabase == null) {
+        if (lines == null || AppDatabase.db == null) {
             return null;
         }
 
         // Build Card Map : card id with recognition score.
         Map<String, Long> cardMap = Arrays.stream(lines)
-                .map(MainActivity.appDatabase.lineDao()::getLinesByContents)
+                .map(AppDatabase.db.lineDao()::getLinesByContents)
                 .flatMap(List::stream)
-                .map(line -> line.line)
+                .map(line -> line.cardId)
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 
         String cardId = null;
@@ -52,6 +52,6 @@ public class SearchTask {
     }
 
     private CardWithLines pick(String cardId) {
-        return MainActivity.appDatabase.cardDao().getCardWithLines(cardId);
+        return AppDatabase.db.cardDao().getCardWithLines(cardId);
     }
 }

@@ -1,8 +1,6 @@
 package com.universitedebordeaux.joue_maths_gie.db;
 
 import android.util.Log;
-
-import com.universitedebordeaux.joue_maths_gie.MainActivity;
 import com.universitedebordeaux.joue_maths_gie.SecondActivity;
 
 import java.lang.ref.WeakReference;
@@ -25,7 +23,7 @@ public class CardSearchTask  {
         if (activity == null) {
             return null;
         }
-        return MainActivity.appDatabase.cardDao().getCardWithLines(id);
+        return AppDatabase.db.cardDao().getCardWithLines(id);
     }
 
     public void onPostExecute(CardWithLines cardWithLines) {

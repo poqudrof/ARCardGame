@@ -29,8 +29,9 @@ public class Card implements Parcelable {
     @ColumnInfo
     public String answer;
 
+    @NonNull
     @ColumnInfo
-    public int number;
+    public Integer number;
 
     @ColumnInfo
     public String tip;
@@ -42,7 +43,7 @@ public class Card implements Parcelable {
     public String soundPath;
 
     public Card(@NonNull String id, @NonNull String type, @NonNull String title,
-                @NonNull String answer, int number) {
+                @NonNull String answer, @NonNull Integer number) {
         this.id = id;
         this.type = type;
         this.title = title;

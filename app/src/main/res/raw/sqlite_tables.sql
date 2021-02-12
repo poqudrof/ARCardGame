@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS Card (
 );
 
 CREATE TABLE IF NOT EXISTS Line (
-    id          INTEGER     PRIMARY KEY     AUTOINCREMENT,
+    id          INTEGER     NOT NULL        PRIMARY KEY     AUTOINCREMENT,
     card_id     TEXT        NOT NULL,
     line        TEXT        NOT NULL,
     FOREIGN KEY (card_id) REFERENCES Card(id)
