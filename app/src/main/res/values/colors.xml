@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
-    <color name="colorTitleEspaces3D">#35AB4A</color>
-    <color name="colorTitleEnglishMaths">#15BEDD</color>
-    <color name="colorTitleMontagneDeProblèmes">#C10EDC</color>
-    <color name="colorTitlePlaineDe2D">#C42D1A</color>
-    <color name="colorTitleValléeDesNombres">#E88108</color>
+    <color name="cerise_red">#F80064</color>
+    <color name="sun">#FFAC00</color>
+    <color name="port_gore">#262147</color>
+    <color name="lima">#7CC221</color>
+    <color name="royal_purple">#6F429B</color>
 </resources>

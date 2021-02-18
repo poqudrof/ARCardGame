@@ -89,7 +89,6 @@ public class SecondActivity extends AppCompatActivity {
         }
 
         displayCard(currentCardList.get(currentIndex));
-        selectColorType(currentCardList.get(currentIndex));
     }
 
     //Start the activity OCR
@@ -141,7 +140,6 @@ public class SecondActivity extends AppCompatActivity {
         }
         currentIndex = 0;
         displayCard(currentCardList.get(0));
-        selectColorType(currentCardList.get(0));
     }
 
     //Display the card from the Bundle Result
@@ -192,40 +190,6 @@ public class SecondActivity extends AppCompatActivity {
         } else {
             card_img.setImageBitmap(null);
         }
-    }
-
-    //Setting the color theme for the Card Display
-    //Ideally a file should contain the names of Categories and their colors
-    protected void selectColorType(CardWithLines cardWithLines) {
-        String type = cardWithLines.card.title;
-        int color = ContextCompat.getColor(getApplicationContext(), R.color.colorTitleEspaces3D);
-
-        switch (type) {
-            case "Espaces 3D":
-                color = ContextCompat.getColor(getApplicationContext(), R.color.colorTitleEspaces3D);
-                break;
-            case "English Maths":
-                color = ContextCompat.getColor(getApplicationContext(), R.color.colorTitleEnglishMaths);
-                break;
-            case "Montagne de problème":
-                color = ContextCompat.getColor(getApplicationContext(), R.color.colorTitleMontagneDeProblèmes);
-                break;
-            case "Plaine de 2D":
-                color = ContextCompat.getColor(getApplicationContext(), R.color.colorTitlePlaineDe2D);
-                break;
-            case "Vallée des nombres":
-                color = ContextCompat.getColor(getApplicationContext(), R.color.colorTitleValléeDesNombres);
-                break;
-            default:
-                break;
-        }
-
-        TextView card_title = findViewById(R.id.display_card_title);
-        card_title.setTextColor(color);
-        Button card_numberR = findViewById((R.id.display_card_numberR));
-        card_numberR.setTextColor(color);
-        Button card_numberA = findViewById((R.id.display_card_numberA));
-        card_numberA.setTextColor(color);
     }
 
     //Use to create a toolbar above the activity

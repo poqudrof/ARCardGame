@@ -1,11 +1,12 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/port_gore</item>
+        <item name="colorPrimaryDark">@color/royal_purple</item>
+        <item name="colorAccent">@color/cerise_red</item>
+        <item name="fontFamily">@font/fredoka_one_regular</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
