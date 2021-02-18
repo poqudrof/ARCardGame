@@ -28,4 +28,8 @@
     <string name="description_jeu">Le jeu de mathématiques de Cycle 3</string>
     <string name="regles">Règles</string>
     <string name="jouer">Jouer</string>
+    <string name="exit_button">exit_button</string>
+    <string name="home_description">Fond d\'écran de la page d\'accueil</string>
+    <string name="settings_description">Pramètres</string>
+    <string name="exit_description">Quitter</string>
 </resources>

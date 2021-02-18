@@ -6,6 +6,16 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+    <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:src="@mipmap/background_home"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:contentDescription="@string/home_description"/>
+
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,7 +37,9 @@
                 android:textAlignment="center"
                 android:textSize="25sp"
                 android:text="@string/description_jeu"
-                android:layout_marginTop="20dp"/>
+                android:textColor="@android:color/black"
+                android:layout_marginTop="20dp"
+                android:background="#CCFFFFFF"/>
 
     </LinearLayout>
 
@@ -47,7 +59,9 @@
                 android:layout_width="200dp"
                 android:layout_height="75dp"
                 android:text="@string/regles"
-                android:textSize="20sp"/>
+                android:textSize="20sp"
+                android:backgroundTint="@color/cerise_red"
+                android:textColor="@android:color/white"/>
 
         <Button
                 android:id="@+id/play_button"
@@ -55,7 +69,9 @@
                 android:layout_height="75dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/jouer"
-                android:textSize="20sp"/>
+                android:textSize="20sp"
+                android:backgroundTint="@color/sun"
+                android:textColor="@android:color/white"/>
 
     </LinearLayout>
 
@@ -71,10 +87,14 @@
                 android:layout_height="wrap_content"
                 android:gravity="start">
 
-            <Button
+            <ImageButton
                     android:id="@+id/exit_button"
-                    android:layout_width="55dp"
-                    android:layout_height="55dp"/>
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@mipmap/exit_icon"
+                    android:scaleType="centerInside"
+                    android:contentDescription="@string/exit_description"
+                    android:background="?attr/selectableItemBackgroundBorderless"/>
 
         </LinearLayout>
 
@@ -83,13 +103,16 @@
                 android:layout_height="wrap_content"
                 android:gravity="end">
 
-            <Button
+            <ImageButton
                     android:id="@+id/setting_button"
-                    android:layout_width="55dp"
-                    android:layout_height="55dp"/>
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@mipmap/setting_icon"
+                    android:scaleType="centerInside"
+                    android:contentDescription="@string/settings_description"
+                    android:background="?attr/selectableItemBackgroundBorderless"/>
 
         </LinearLayout>
-
 
     </LinearLayout>
 

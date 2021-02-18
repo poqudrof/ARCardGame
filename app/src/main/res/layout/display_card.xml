@@ -25,7 +25,6 @@
         android:fontFamily="cursive"
         android:text="Theme Card"
         android:textAlignment="center"
-        android:textColor="@color/colorTitleEspaces3D"
         android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -65,7 +64,6 @@
         android:fontFamily="cursive"
         android:onClick="getSolution"
         android:text="R1"
-        android:textColor="@color/colorTitleEspaces3D"
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_camera" />
@@ -79,7 +77,6 @@
         android:fontFamily="cursive"
         android:onClick="getHelp"
         android:text="A1"
-        android:textColor="@color/colorTitleEspaces3D"
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btn_camera" />
