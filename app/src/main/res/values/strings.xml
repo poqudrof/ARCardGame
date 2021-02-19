@@ -3,7 +3,7 @@
     <string name="logo_joue_maths_gie">logo Joue-Maths-Gie</string>
     <string name="game_description">Le jeu de mathématiques de Cycle 3</string>
     <string name="rules">Règles</string>
-    <string name="play">Jouer</string>
+    <string name="scan">Scanner</string>
     <string name="exit_button">exit_button</string>
     <string name="home_description">Fond d\'écran de la page d\'accueil</string>
     <string name="settings_description">Pramètres</string>
@@ -11,4 +11,5 @@
     <string name="no_data_stored">Il n\'y a aucune données sauvégardées. Veuillez mettre à jour le deck de carte.</string>
     <string name="data_restored_ok">La base de données a été chargée.</string>
     <string name="db_name">joue_maths_gie.db</string>
+    <string name="update">Mettre à jour</string>
 </resources>
