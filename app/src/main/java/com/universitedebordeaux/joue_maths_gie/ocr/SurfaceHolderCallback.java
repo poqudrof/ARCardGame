@@ -14,6 +14,8 @@ import com.google.android.gms.vision.CameraSource;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 
+// request the camera authorization to the user
+
 public class SurfaceHolderCallback implements SurfaceHolder.Callback {
 
     private final WeakReference<AppCompatActivity> activityReference;
