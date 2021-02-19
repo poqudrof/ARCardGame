@@ -1,36 +1,14 @@
 <resources>
     <string name="app_name">Joue-Maths-Gie</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Joue-Maths-Gie</string>
-    <string name="nav_header_subtitle">jumathsji.studio@jumathsji.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
-
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
-    <string name="menu_tools">Tools</string>
-    <string name="menu_share">Share</string>
-    <string name="menu_send">Send</string>
-    <string name="title_activity_second">Joue-Maths-Gie</string>
-    <string name="validation">Validation</string>
-    <string name="input_code">Code de la carte</string>
-    <string name="MajBDD">Veuillez mettre à jour la BDD</string>
-    <string name="download_button_text">Mettre\nà jour\n Joue-Maths-Gie</string>
-
-    <string name="action_search">Recherche de la cartes</string>
-
-    <string name="database_url">http://lorian.corbel.emi.u-bordeaux.fr/jumathsji/</string>
-    <string name="database_phone_path">/data/data/com.universitedebordeaux.joue_maths_gie/files/</string>
-    <string name="no_data_stored">Il n\'y a aucune données sauvégardées. Veuillez mettre à jour le deck de carte.</string>
     <string name="logo_joue_maths_gie">logo Joue-Maths-Gie</string>
-    <string name="description_jeu">Le jeu de mathématiques de Cycle 3</string>
-    <string name="regles">Règles</string>
-    <string name="jouer">Jouer</string>
+    <string name="game_description">Le jeu de mathématiques de Cycle 3</string>
+    <string name="rules">Règles</string>
+    <string name="play">Jouer</string>
     <string name="exit_button">exit_button</string>
     <string name="home_description">Fond d\'écran de la page d\'accueil</string>
     <string name="settings_description">Pramètres</string>
     <string name="exit_description">Quitter</string>
+    <string name="no_data_stored">Il n\'y a aucune données sauvégardées. Veuillez mettre à jour le deck de carte.</string>
     <string name="data_restored_ok">La base de données a été chargée.</string>
+    <string name="db_name">joue_maths_gie.db</string>
 </resources>
