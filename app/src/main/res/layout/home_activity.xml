@@ -85,6 +85,7 @@
             android:paddingBottom="13dp">
 
         <Button
+                android:id="@+id/update_button"
                 android:layout_width="225dp"
                 android:layout_height="65dp"
                 android:text="@string/update"
