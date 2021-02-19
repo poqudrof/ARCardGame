@@ -3,6 +3,7 @@ package com.universitedebordeaux.joue_maths_gie.download;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.util.Log;
+import com.universitedebordeaux.joue_maths_gie.R;
 import com.universitedebordeaux.joue_maths_gie.db.AppDatabase;
 
 import java.io.IOException;
@@ -32,7 +33,7 @@ public class UpdateDBTask {
         AssetManager assetManager = context.getAssets();
 
         try {
-            assetManager.open(AppDatabase.DB_NAME);
+            assetManager.open(context.getString(R.string.db_name));
         } catch (IOException e) {
             Log.i(getClass().getSimpleName(), "Cannot open file: Got [" + e.getMessage() + "]");
             return false;

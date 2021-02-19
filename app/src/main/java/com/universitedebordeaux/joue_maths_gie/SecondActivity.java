@@ -1,5 +1,6 @@
 package com.universitedebordeaux.joue_maths_gie;
 
+/*
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -235,3 +236,4 @@ public class SecondActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 }
+*/

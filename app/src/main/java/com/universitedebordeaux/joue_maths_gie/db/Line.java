@@ -22,10 +22,13 @@ public class Line implements Parcelable {
 
     @NonNull
     @ColumnInfo(name = "card_id", index = true)
+    // Linked to the associated card.
+    // Example : "e3dcm1q_1"
     public String cardId;
 
     @NonNull
     @ColumnInfo
+    // Example : "Combien y-a-t-il de cubes"
     public String line;
 
     public Line(@NonNull Integer id, @NonNull String cardId, @NonNull String line) {

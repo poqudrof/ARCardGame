@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
-    <background android:drawable="@color/joue_maths_gie_background"/>
-    <foreground android:drawable="@mipmap/joue_maths_gie_foreground"/>
-</adaptive-icon>
