@@ -11,7 +11,7 @@
             android:layout_height="match_parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:src="@mipmap/background_home"
+            android:src="@mipmap/background_home3"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
             android:contentDescription="@string/home_description"/>
