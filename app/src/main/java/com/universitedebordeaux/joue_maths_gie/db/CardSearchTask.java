@@ -1,5 +1,6 @@
 package com.universitedebordeaux.joue_maths_gie.db;
 
+/*
 import android.util.Log;
 import com.universitedebordeaux.joue_maths_gie.SecondActivity;
 
@@ -10,6 +11,7 @@ import java.util.stream.Stream;
 // Asynchronous task used to retrieve a complete card.
 // By complete, we mean, which contains its text so a CardWithLines.
 public class CardSearchTask  {
+
     private final WeakReference<SecondActivity> mRefActivity;
 
     public CardSearchTask(SecondActivity activity) {
@@ -34,3 +36,4 @@ public class CardSearchTask  {
         }
     }
 }
+*/

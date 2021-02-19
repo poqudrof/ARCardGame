@@ -12,12 +12,16 @@ import java.util.stream.Collectors;
 
 // Matches to a card with its text, in other words its Line list.
 public class CardWithLines implements Parcelable {
+
     @Embedded
+    // The selected card.
     public Card card;
 
     @Relation(parentColumn = "id", entityColumn = "card_id")
+    // The lines associated with the card.
     public List<Line> lines;
 
+    // Map all lines to form a unique text.
     public String getText() {
         return lines.stream().map(line -> line.line).collect(Collectors.joining("\n"));
     }

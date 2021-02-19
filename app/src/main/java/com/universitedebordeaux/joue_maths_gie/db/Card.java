@@ -15,33 +15,42 @@ public class Card implements Parcelable {
     @PrimaryKey
     @NonNull
     @ColumnInfo
+    // Example : "e3dcm1q_1"
     public String id;
 
     @NonNull
     @ColumnInfo
+    // Example : "question"
     public String type;
 
     @NonNull
     @ColumnInfo
+    // Example : "Espaces 3D"
     public String title;
 
     @NonNull
     @ColumnInfo
+    // Example : "La réponse est 30."
     public String answer;
 
     @NonNull
     @ColumnInfo
+    // Example : 1
     public Integer number;
 
     @ColumnInfo
+    // Example : "Ceci est un message d'aide."
     public String tip;
 
     @ColumnInfo(name = "image_path")
+    // Example : "image/image.png"
     public String imagePath;
 
     @ColumnInfo(name = "sound_path")
+    // Example : "sound/sound.mp4"
     public String soundPath;
 
+    // Card constructor.
     public Card(@NonNull String id, @NonNull String type, @NonNull String title,
                 @NonNull String answer, @NonNull Integer number) {
         this.id = id;

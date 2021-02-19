@@ -9,6 +9,7 @@ import androidx.room.Transaction;
 // DAO Card only.
 public interface CardSQLDao {
 
+    // Select all cards in the database.
     @Transaction
     @Query("SELECT * FROM Card WHERE id = :id")
     CardWithLines getCardWithLines(String id);
