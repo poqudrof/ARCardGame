@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.vision.CameraSource;
+import com.universitedebordeaux.joue_maths_gie.ui.CameraActivity;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
@@ -34,7 +35,7 @@ public class SurfaceHolderCallback implements SurfaceHolder.Callback {
             if (checkCameraPermission()) {
                 ActivityCompat.requestPermissions(activityReference.get(),
                         new String[] { Manifest.permission.CAMERA },
-                        TextRecognitionActivity.requestCameraPermissionID);
+                        CameraActivity.requestCameraPermissionID);
                 return;
             }
             cameraSourceReference.get().start(cameraViewReference.get().getHolder());

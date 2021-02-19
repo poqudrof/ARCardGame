@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.text.TextBlock;
 import com.universitedebordeaux.joue_maths_gie.db.CardWithLines;
+import com.universitedebordeaux.joue_maths_gie.ui.CameraActivity;
 
 import java.lang.ref.WeakReference;
 import java.util.LinkedList;
@@ -17,9 +18,9 @@ import java.util.concurrent.Executors;
 
 public class TextAnalyzer implements Detector.Processor<TextBlock> {
 
-    private final WeakReference<TextRecognitionActivity> mRefActivity;
+    private final WeakReference<CameraActivity> mRefActivity;
 
-    public TextAnalyzer(TextRecognitionActivity activity) {
+    public TextAnalyzer(CameraActivity activity) {
         mRefActivity = new WeakReference<>(activity);
     }
 
@@ -42,7 +43,7 @@ public class TextAnalyzer implements Detector.Processor<TextBlock> {
             ExecutorService executorService = Executors.newSingleThreadExecutor();
 
             executorService.execute(() -> {
-                TextRecognitionActivity activity = mRefActivity.get();
+                CameraActivity activity = mRefActivity.get();
                 SearchTask task = new SearchTask();
                 List<CardWithLines> cards;
 
