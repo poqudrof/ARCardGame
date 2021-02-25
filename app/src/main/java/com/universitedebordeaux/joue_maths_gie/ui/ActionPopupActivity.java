@@ -7,8 +7,6 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import androidx.annotation.NonNull;
-import androidx.annotation.StringRes;
 import com.universitedebordeaux.joue_maths_gie.R;
 import org.jetbrains.annotations.NotNull;
 
