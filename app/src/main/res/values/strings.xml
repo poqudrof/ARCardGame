@@ -21,4 +21,7 @@
     <string name="card_help">A</string>
     <string name="card_camera_button">Bouton pour revenir à la caméra.</string>
     <string name="card_sound_button">Bouton qui permet de gérer le volume du son.</string>
+    <string name="code_title">Saisie le numéro de la carte :</string>
+    <string name="code_hint">Écrit le code ici.</string>
+    <string name="updating_data">Chargement des données... Veuillez patienter.</string>
 </resources>

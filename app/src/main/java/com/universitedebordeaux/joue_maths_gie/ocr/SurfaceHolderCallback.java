@@ -15,8 +15,7 @@ import com.universitedebordeaux.joue_maths_gie.ui.CameraActivity;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 
-// request the camera authorization to the user
-
+// Request the camera authorization to the user
 public class SurfaceHolderCallback implements SurfaceHolder.Callback {
 
     private final WeakReference<AppCompatActivity> activityReference;

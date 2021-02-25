@@ -7,20 +7,32 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import com.universitedebordeaux.joue_maths_gie.R;
+import org.jetbrains.annotations.NotNull;
+
+import java.lang.ref.WeakReference;
 
 public class ActionPopupActivity {
+
+    public interface ActionPopupButtonHandler {
+        void onClick(@NotNull String editTextResult);
+    }
 
     private TextView tvTitle;
     private EditText etField;
     private Button button;
 
-    private final Activity activity;
+    private final WeakReference<Activity> activity;
+    private final ActionPopupButtonHandler buttonHandler;
     private Dialog dialog;
 
-    public ActionPopupActivity(@StringRes int title, @StringRes int hintText, Activity activity) {
-        this.activity = activity;
+    public ActionPopupActivity(String title, String hintText, Activity activity,
+                               ActionPopupButtonHandler buttonHandler) {
+
+        this.activity = new WeakReference<>(activity);
+        this.buttonHandler = buttonHandler;
 
         setDialog();
         findViews();
@@ -36,7 +48,7 @@ public class ActionPopupActivity {
     }
 
     private void setDialog() {
-        dialog = new Dialog(activity);
+        dialog = new Dialog(activity.get());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.popup_activity);
     }
@@ -47,13 +59,13 @@ public class ActionPopupActivity {
         button = dialog.findViewById(R.id.popup_ok_bouton);
     }
 
-    private void setData(@StringRes int title, @StringRes  int hintText) {
+    private void setData(String title, String hintText) {
         tvTitle.setText(title);
         etField.setText(hintText);
         button.setOnClickListener(this::onClick);
     }
 
     private void onClick(View view) {
-        // TODO
+        buttonHandler.onClick(etField.getText().toString());
     }
 }

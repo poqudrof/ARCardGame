@@ -14,8 +14,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-// Receive and Analyze different group of words than OCR could receive
-
+// Receive and analyze different group of words than OCR could receive
 public class TextAnalyzer implements Detector.Processor<TextBlock> {
 
     private final WeakReference<CameraActivity> mRefActivity;
@@ -51,11 +50,11 @@ public class TextAnalyzer implements Detector.Processor<TextBlock> {
                     Log.d(getClass().getSimpleName(), str);
                 }
                 cards = task.doInBackground(list.toArray(new String[0]));
-                activity.runOnUiThread(() -> {
-                     if (cards != null && !cards.isEmpty()) {
-                         activity.doOnResult(cards);
-                     }
-                });
+                if (cards != null && !cards.isEmpty()) {
+                    activity.runOnUiThread(() -> {
+                        activity.doOnResult(cards);
+                    });
+                }
             });
         }
     }

@@ -5,6 +5,8 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.SurfaceView;
+import android.view.View;
+import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,12 +26,17 @@ public class CameraActivity extends AppCompatActivity {
     public static final String cardsList = "CARDS_LIST";
     public static final int requestCameraPermissionID = 1001;
 
+    private ActionPopupActivity popupActivity;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.camera_activity);
 
-        // startCamera();
+        popupActivity = new ActionPopupActivity(getString(R.string.code_title), getString(R.string.code_hint),
+                this, this::onCodeResult);
+        setData();
+        startCamera();
     }
 
     @Override
@@ -64,8 +71,29 @@ public class CameraActivity extends AppCompatActivity {
         }
     }
 
+    private void setData() {
+        Button returnTopButton = findViewById(R.id.return_button);
+        Button codeButton = findViewById(R.id.code_button);
+
+        returnTopButton.setOnClickListener(this::onReturnButtonClick);
+        codeButton.setOnClickListener(this::onCodeButtonClick);
+    }
+
+    private void onCodeButtonClick(View view) {
+        popupActivity.showDialog();
+    }
+
+    private void onReturnButtonClick(View view) {
+        onBackPressed();
+    }
+
+    private void onCodeResult(@NotNull String editTextResult) {
+        popupActivity.dismiss();
+        // TODO: Start search.
+    }
+
     // Send and send the recognition result to the card activity.
-    public void doOnResult(List<CardWithLines> cardsWithLines) {
+    public synchronized void doOnResult(List<CardWithLines> cardsWithLines) {
         Intent intent = new Intent(this, CardActivity.class);
         Bundle bundle = new Bundle();
 

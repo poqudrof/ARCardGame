@@ -16,34 +16,48 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Button button;
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity);
-
-        // Connecting all buttons.
-        button = findViewById(R.id.play_button);
-        button.setOnClickListener(this::startScan);
 
         // Updating the database at the start.
         updateDatabase();
     }
 
     private void updateDatabase() {
+        Toast updateToast;
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         UpdateDBTask updater = new UpdateDBTask(getApplicationContext());
 
+        updateToast = Toast.makeText(this, R.string.updating_data, Toast.LENGTH_LONG);
+        updateToast.show();
         executorService.execute(() -> {
-            boolean res = updater.doInBackground();
+            boolean hasSavedData = updater.doInBackground();
 
+            updateToast.cancel();
             runOnUiThread(() -> {
-                if (res) {
+                if (hasSavedData) {
                     Toast.makeText(this, R.string.data_restored_ok, Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(this, R.string.no_data_stored, Toast.LENGTH_LONG).show();
+                    showNoDataSavedToast();
                 }
+                // Now connecting all buttons.
+                setData(hasSavedData);
             });
         });
+    }
+
+    private void showNoDataSavedToast() {
+        Toast.makeText(this, R.string.no_data_stored, Toast.LENGTH_LONG).show();
+    }
+
+    private void setData(boolean hasSavedData) {
+        Button scanButton = findViewById(R.id.play_button);
+
+        if (hasSavedData) {
+            scanButton.setOnClickListener(this::startScan);
+        } else {
+            scanButton.setOnClickListener(this::cannotStartScan);
+        }
     }
 
     private void startScan(View view)
@@ -51,5 +65,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, CameraActivity.class);
 
         startActivity(intent);
+    }
+
+    private void cannotStartScan(View view) {
+        showNoDataSavedToast();
     }
 }
