@@ -16,4 +16,9 @@
     <string name="help">Aide</string>
     <string name="code">Saisir le code</string>
     <string name="popup_ok">Valider</string>
+    <string name="card_image_description">Image associée à la carte.</string>
+    <string name="response">R</string>
+    <string name="card_help">A</string>
+    <string name="card_camera_button">Bouton pour revenir à la caméra.</string>
+    <string name="card_sound_button">Bouton qui permet de gérer le volume du son.</string>
 </resources>
