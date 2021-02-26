@@ -7,7 +7,9 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import com.universitedebordeaux.joue_maths_gie.R;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.ref.WeakReference;
@@ -18,9 +20,7 @@ public class ActionPopupActivity {
         void onClick(@NotNull String editTextResult);
     }
 
-    private TextView tvTitle;
     private EditText etField;
-    private Button button;
 
     private final WeakReference<Activity> activity;
     private final ActionPopupButtonHandler buttonHandler;
@@ -33,7 +33,6 @@ public class ActionPopupActivity {
         this.buttonHandler = buttonHandler;
 
         setDialog();
-        findViews();
         setData(title, hintText);
     }
 
@@ -51,15 +50,13 @@ public class ActionPopupActivity {
         dialog.setContentView(R.layout.popup_activity);
     }
 
-    private void findViews() {
-        tvTitle = dialog.findViewById(R.id.popup_title);
-        etField = dialog.findViewById(R.id.popup_text_field);
-        button = dialog.findViewById(R.id.popup_ok_bouton);
-    }
-
     private void setData(String title, String hintText) {
+        TextView tvTitle = dialog.findViewById(R.id.popup_title);
+        Button button = dialog.findViewById(R.id.popup_ok_bouton);
+
         tvTitle.setText(title);
-        etField.setText(hintText);
+        etField = dialog.findViewById(R.id.popup_text_field);
+        etField.setHint(hintText);
         button.setOnClickListener(this::onClick);
     }
 

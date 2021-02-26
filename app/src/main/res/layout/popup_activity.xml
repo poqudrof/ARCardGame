@@ -23,6 +23,7 @@
             android:layout_height="wrap_content"
             android:autofillHints=""
             android:inputType="text"
+            android:textColorHint="@android:color/darker_gray"
             tools:hint="Ceci est un code."
             tools:labelFor="@id/popup_text_field"/>
 

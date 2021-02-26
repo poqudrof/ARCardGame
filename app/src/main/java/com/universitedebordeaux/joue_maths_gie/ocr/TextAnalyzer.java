@@ -13,14 +13,18 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 // Receive and analyze different group of words than OCR could receive
 public class TextAnalyzer implements Detector.Processor<TextBlock> {
 
     private final WeakReference<CameraActivity> mRefActivity;
+    private final AtomicBoolean aBoolean;
 
     public TextAnalyzer(CameraActivity activity) {
         mRefActivity = new WeakReference<>(activity);
+        aBoolean = new AtomicBoolean(true);
     }
 
     @Override
@@ -52,7 +56,13 @@ public class TextAnalyzer implements Detector.Processor<TextBlock> {
                 cards = task.doInBackground(list.toArray(new String[0]));
                 if (cards != null && !cards.isEmpty()) {
                     activity.runOnUiThread(() -> {
-                        activity.doOnResult(cards);
+                        // Blocked any thread that attempts to start the card activity
+                        // at the same time.
+                        if (aBoolean.compareAndSet(true, false)) {
+                            activity.doOnResult(cards);
+                            // Release the TextAnalyzer class after successful result.
+                            release();
+                        }
                     });
                 }
             });

@@ -7,18 +7,27 @@ import android.util.Log;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.text.TextRecognizer;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.universitedebordeaux.joue_maths_gie.R;
+import com.universitedebordeaux.joue_maths_gie.db.AppDatabase;
 import com.universitedebordeaux.joue_maths_gie.db.CardWithLines;
 import com.universitedebordeaux.joue_maths_gie.ocr.SurfaceHolderCallback;
 import com.universitedebordeaux.joue_maths_gie.ocr.TextAnalyzer;
+
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 // Recognition and preview activity.
 public class CameraActivity extends AppCompatActivity {
@@ -27,16 +36,18 @@ public class CameraActivity extends AppCompatActivity {
     public static final int requestCameraPermissionID = 1001;
 
     private ActionPopupActivity popupActivity;
+    private SurfaceView cameraView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.camera_activity);
 
+        cameraView = findViewById(R.id.camera_view);
         popupActivity = new ActionPopupActivity(getString(R.string.code_title), getString(R.string.code_hint),
                 this, this::onCodeResult);
-        setData();
         startCamera();
+        setData();
     }
 
     @Override
@@ -53,9 +64,7 @@ public class CameraActivity extends AppCompatActivity {
         }
     }
 
-    private void startCamera()
-    {
-        SurfaceView cameraView = findViewById(R.id.camera_view);
+    private void startCamera() {
         TextRecognizer textRecognizer = new TextRecognizer.Builder(getApplicationContext()).build();
 
         if (!textRecognizer.isOperational()) {
@@ -72,7 +81,7 @@ public class CameraActivity extends AppCompatActivity {
     }
 
     private void setData() {
-        Button returnTopButton = findViewById(R.id.return_button);
+        FloatingActionButton returnTopButton = findViewById(R.id.return_button);
         Button codeButton = findViewById(R.id.code_button);
 
         returnTopButton.setOnClickListener(this::onReturnButtonClick);
@@ -88,18 +97,36 @@ public class CameraActivity extends AppCompatActivity {
     }
 
     private void onCodeResult(@NotNull String editTextResult) {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+
         popupActivity.dismiss();
-        // TODO: Start search.
+        if (editTextResult.isEmpty()) {
+            return;
+        }
+        executorService.execute(() -> {
+            CardWithLines card = AppDatabase.db.cardDao().getCardWithLines(editTextResult);
+            List<CardWithLines> cards = new ArrayList<>();
+
+            runOnUiThread(() -> {
+                if (card == null) {
+                    Toast.makeText(this, R.string.card_not_found, Toast.LENGTH_SHORT).show();
+                } else {
+                    cards.add(card);
+                    doOnResult(cards);
+                }
+            });
+        });
     }
 
     // Send and send the recognition result to the card activity.
-    public synchronized void doOnResult(List<CardWithLines> cardsWithLines) {
+    public void doOnResult(List<CardWithLines> cardsWithLines) {
         Intent intent = new Intent(this, CardActivity.class);
         Bundle bundle = new Bundle();
 
         bundle.putParcelableArrayList(cardsList, CardWithLines.toParcelableList(cardsWithLines));
 
         intent.putExtras(bundle);
+        finish();
         startActivity(intent);
     }
 }

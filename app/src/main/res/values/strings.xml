@@ -24,4 +24,5 @@
     <string name="code_title">Saisie le numéro de la carte :</string>
     <string name="code_hint">Écrit le code ici.</string>
     <string name="updating_data">Chargement des données... Veuillez patienter.</string>
+    <string name="card_not_found">La carte associée au code saisi n\'a pas été trouvée.</string>
 </resources>
