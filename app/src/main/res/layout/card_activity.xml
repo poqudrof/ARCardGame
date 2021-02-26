@@ -79,7 +79,7 @@
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:text="@string/response_short"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:backgroundTint="@color/lima"
                     android:textColor="@android:color/white"/>
 
@@ -94,9 +94,12 @@
                     android:id="@+id/camera_button"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:src="@mipmap/camera"
+                    android:src="@mipmap/camera_white"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:padding="22dp"
                     android:layout_marginStart="15dp"
-                    android:backgroundTint="@color/sun"
+                    android:backgroundTint="@color/cerise_red"
                     android:contentDescription="@string/card_camera_button"/>
 
         </LinearLayout>
@@ -110,9 +113,12 @@
                     android:id="@+id/sound_button"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:src="@mipmap/sound_on"
+                    android:src="@mipmap/sound_on_white"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:padding="22dp"
                     android:layout_marginStart="15dp"
-                    android:backgroundTint="@color/sun"
+                    android:backgroundTint="@color/cerise_red"
                     android:textColor="@android:color/white"
                     android:contentDescription="@string/card_sound_button"/>
 
@@ -128,7 +134,7 @@
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:text="@string/help_short"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:layout_marginStart="15dp"
                     android:backgroundTint="@color/lima"
                     android:textColor="@android:color/white"/>

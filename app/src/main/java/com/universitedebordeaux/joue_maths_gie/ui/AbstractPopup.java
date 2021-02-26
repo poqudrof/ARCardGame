@@ -2,6 +2,8 @@ package com.universitedebordeaux.joue_maths_gie.ui;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.Window;
 import androidx.annotation.LayoutRes;
 
@@ -29,5 +31,6 @@ public abstract class AbstractPopup {
         dialog = new Dialog(activity.get());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(layout);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }
 }

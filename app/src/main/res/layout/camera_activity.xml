@@ -20,10 +20,12 @@
             app:layout_constraintStart_toStartOf="parent"
             android:gravity="start|top"
             android:contentDescription="@string/return_button_camera_activity"
-            app:srcCompat="@mipmap/return_button"
+            app:srcCompat="@mipmap/return_button_white"
+            android:scaleType="fitCenter"
             android:layout_marginStart="7dp"
             android:layout_marginTop="7dp"
-            android:backgroundTint="@color/lima"/>
+            android:backgroundTint="@color/cerise_red"
+            app:tint="@android:color/white"/>
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -45,7 +47,7 @@
                     android:layout_height="70dp"
                     android:text="@string/help"
                     android:textSize="19sp"
-                    android:backgroundTint="@color/cerise_red"
+                    android:backgroundTint="@color/port_gore"
                     android:textColor="@android:color/white"/>
 
         </LinearLayout>

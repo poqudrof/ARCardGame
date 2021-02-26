@@ -6,4 +6,9 @@
     <color name="lima">#7CC221</color>
     <color name="royal_purple">#6F429B</color>
     <color name="orange">#FF7802</color>
+    <color name="color_title_espaces_3D">#35AB4A</color>
+    <color name="color_title_english_maths">#15BEDD</color>
+    <color name="color_title_montagne_de_problèmes">#C10EDC</color>
+    <color name="color_title_plaine_de_2D">#C42D1A</color>
+    <color name="color_title_vallée_des_nombres">#E88108</color>
 </resources>
