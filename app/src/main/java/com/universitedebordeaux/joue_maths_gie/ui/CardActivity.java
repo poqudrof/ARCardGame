@@ -47,10 +47,12 @@ public class CardActivity extends AppCompatActivity {
         tvTitle.setText(card.card.title);
         tvText.setText(card.getText());
         // TODO: Image
-        responseButton.setText(responseButton.getText() + card.card.number.toString());
+        responseButton.setText(String.format("%s%s", responseButton.getText(),
+                card.card.number.toString()));
         responseButton.setOnClickListener(this::onResponseClick);
         cameraButton.setOnClickListener(this::onCameraClick);
-        helpButton.setText(helpButton.getText() + card.card.number.toString());
+        helpButton.setText(String.format("%s%s", helpButton.getText(),
+                card.card.number.toString()));
         if (card.card.tip == null || card.card.tip.isEmpty()) {
             helpButton.setBackgroundColor(Color.GRAY);
             helpButton.setEnabled(false);
