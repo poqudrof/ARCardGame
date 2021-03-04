@@ -42,19 +42,4 @@
 
     </ScrollView>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/rules_return_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:gravity="start|end"
-        android:contentDescription="@string/return_button_camera_activity"
-        app:srcCompat="@mipmap/return_button_white"
-        android:scaleType="fitCenter"
-        android:layout_marginStart="7dp"
-        android:layout_marginBottom="7dp"
-        android:backgroundTint="@color/sun"
-        app:tint="@android:color/white"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

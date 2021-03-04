@@ -2,7 +2,9 @@ package com.universitedebordeaux.joue_maths_gie.ocr;
 
 import android.util.Log;
 import android.util.SparseArray;
+
 import androidx.annotation.NonNull;
+
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.text.TextBlock;
 import com.universitedebordeaux.joue_maths_gie.db.CardWithLines;
@@ -13,7 +15,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 // Receive and analyze different group of words than OCR could receive

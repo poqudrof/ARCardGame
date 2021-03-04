@@ -1,6 +1,8 @@
 package com.universitedebordeaux.joue_maths_gie.ui;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,7 +17,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.text.TextRecognizer;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.universitedebordeaux.joue_maths_gie.R;
 import com.universitedebordeaux.joue_maths_gie.db.AppDatabase;
 import com.universitedebordeaux.joue_maths_gie.db.CardWithLines;
@@ -35,6 +36,7 @@ public class CameraActivity extends AppCompatActivity {
     public static final String cardsList = "CARDS_LIST";
     public static final int requestCameraPermissionID = 1001;
 
+    private SharedPreferences sharedPreferences;
     private ActionPopupActivity popupActivity;
     private SurfaceView cameraView;
 
@@ -46,6 +48,7 @@ public class CameraActivity extends AppCompatActivity {
         cameraView = findViewById(R.id.camera_view);
         popupActivity = new ActionPopupActivity(getString(R.string.code_title), getString(R.string.code_hint),
                 this, this::onCodeResult);
+        sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         startCamera();
         setData();
     }
@@ -81,19 +84,14 @@ public class CameraActivity extends AppCompatActivity {
     }
 
     private void setData() {
-        FloatingActionButton returnTopButton = findViewById(R.id.camera_return_button);
         Button codeButton = findViewById(R.id.code_button);
 
-        returnTopButton.setOnClickListener(this::onReturnButtonClick);
         codeButton.setOnClickListener(this::onCodeButtonClick);
     }
 
     private void onCodeButtonClick(View view) {
+        restoreCardCodeIfAny();
         popupActivity.showDialog();
-    }
-
-    private void onReturnButtonClick(View view) {
-        onBackPressed();
     }
 
     private void onCodeResult(@NotNull String editTextResult) {
@@ -103,6 +101,7 @@ public class CameraActivity extends AppCompatActivity {
         if (editTextResult.isEmpty()) {
             return;
         }
+        saveCardCode(editTextResult);
         executorService.execute(() -> {
             CardWithLines card = AppDatabase.db.cardDao().getCardWithLines(editTextResult);
             List<CardWithLines> cards = new ArrayList<>();
@@ -116,6 +115,16 @@ public class CameraActivity extends AppCompatActivity {
                 }
             });
         });
+    }
+
+    private void saveCardCode(@NonNull String code) {
+        sharedPreferences.edit().putString("code", code).apply();
+    }
+
+    private void restoreCardCodeIfAny() {
+        String code = sharedPreferences.getString("code", null);
+
+        popupActivity.setText(code);
     }
 
     // Send and send the recognition result to the card activity.

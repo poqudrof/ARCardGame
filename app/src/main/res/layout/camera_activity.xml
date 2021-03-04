@@ -13,49 +13,31 @@
         tools:visibility="gone"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/camera_return_button"
+        android:id="@+id/camera_help_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:gravity="start|top"
         android:contentDescription="@string/return_button_camera_activity"
-        app:srcCompat="@mipmap/return_button_white"
+        app:srcCompat="@mipmap/help_white"
+        app:fabCustomSize="45dp"
         android:scaleType="fitCenter"
         android:layout_marginStart="7dp"
         android:layout_marginTop="7dp"
-        android:backgroundTint="@color/cerise_red"
-        app:tint="@android:color/white"/>
+        android:backgroundTint="@color/lima"
+        app:tint="@android:color/white"
+        app:borderWidth="0dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:orientation="horizontal"
-        android:gravity="bottom"
+        android:gravity="bottom|end"
         android:layout_marginStart="7dp"
         android:layout_marginEnd="7dp">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="start">
-
-            <Button
-                android:id="@+id/camera_help_button"
-                android:layout_width="155dp"
-                android:layout_height="70dp"
-                android:text="@string/help"
-                android:textSize="19sp"
-                android:backgroundTint="@color/port_gore"
-                android:textColor="@android:color/white"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="end">
 
             <Button
                 android:id="@+id/code_button"
@@ -65,8 +47,6 @@
                 android:textSize="19sp"
                 android:backgroundTint="@color/sun"
                 android:textColor="@android:color/white"/>
-
-        </LinearLayout>
 
     </LinearLayout>
 

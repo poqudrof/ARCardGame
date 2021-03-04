@@ -18,7 +18,6 @@ public class RulesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.rules_activity);
 
-        setData();
         readText();
     }
 
@@ -44,15 +43,5 @@ public class RulesActivity extends AppCompatActivity {
         }
 
         txtView.setText(text.toString());
-    }
-
-    private void setData() {
-        FloatingActionButton returnTopButton = findViewById(R.id.rules_return_button);
-
-        returnTopButton.setOnClickListener(this::onReturnButtonClick);
-    }
-
-    private void onReturnButtonClick(View view) {
-        onBackPressed();
     }
 }

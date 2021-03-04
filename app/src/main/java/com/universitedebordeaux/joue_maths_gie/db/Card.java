@@ -34,9 +34,9 @@ public class Card implements Parcelable {
     public String answer;
 
     @NonNull
-    @ColumnInfo
+    @ColumnInfo(name = "card_number")
     // Example : 1
-    public Integer number;
+    public Integer cardNumber;
 
     @ColumnInfo
     // Example : "Ceci est un message d'aide."
@@ -52,12 +52,12 @@ public class Card implements Parcelable {
 
     // Card constructor.
     public Card(@NonNull String id, @NonNull String type, @NonNull String title,
-                @NonNull String answer, @NonNull Integer number) {
+                @NonNull String answer, @NonNull Integer cardNumber) {
         this.id = id;
         this.type = type;
         this.title = title;
         this.answer = answer;
-        this.number = number;
+        this.cardNumber = cardNumber;
     }
 
     protected Card(Parcel in) {
@@ -65,7 +65,7 @@ public class Card implements Parcelable {
         type = in.readString();
         title = in.readString();
         answer = in.readString();
-        number = in.readInt();
+        cardNumber = in.readInt();
         tip = in.readString();
         imagePath = in.readString();
         soundPath = in.readString();
@@ -94,7 +94,7 @@ public class Card implements Parcelable {
         dest.writeString(type);
         dest.writeString(title);
         dest.writeString(answer);
-        dest.writeInt(number);
+        dest.writeInt(cardNumber);
         dest.writeString(tip);
         dest.writeString(imagePath);
         dest.writeString(soundPath);

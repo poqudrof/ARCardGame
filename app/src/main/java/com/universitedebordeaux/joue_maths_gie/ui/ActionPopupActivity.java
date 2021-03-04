@@ -24,6 +24,10 @@ public class ActionPopupActivity extends AbstractPopup {
         setData(title, hintText);
     }
 
+    public void setText(String editText) {
+        etField.setText(editText);
+    }
+
     private void setData(String title, String hintText) {
         TextView tvTitle = dialog.findViewById(R.id.action_popup_title);
         Button button = dialog.findViewById(R.id.action_popup_bouton);
@@ -35,6 +39,6 @@ public class ActionPopupActivity extends AbstractPopup {
     }
 
     private void onClick(View view) {
-        buttonHandler.onClick(etField.getText().toString());
+        buttonHandler.onClick(etField.getText().toString().trim());
     }
 }

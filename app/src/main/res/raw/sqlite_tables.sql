@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS Card (
     type        TEXT        NOT NULL,
     title       TEXT        NOT NULL,
     answer      TEXT        NOT NULL,
-    number      INTEGER     NOT NULL,
+    card_number INTEGER     NOT NULL,
     tip         TEXT,
     image_path  TEXT,
     sound_path  TEXT
@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS Line (
         ON DELETE CASCADE
 );
 
-INSERT INTO Card(id, type, title, answer, tip, number) VALUES
+INSERT INTO Card(id, type, title, answer, tip, card_number) VALUES
 ('e3dcm1q_1', 'question', 'Espaces 3D', 'Il y a 50 cubes : il y a 5 cubes dans une rangée, il y a 10 rangées, 5 x 10 = 50.' , 'aide', 1),
 ('e3dcm1q_2', 'question', 'Espaces 3D', '3 x 3 + 2 x 2 + 1 = 14 cubes.', NULL, 2),
 ('e3dcm1q_3', 'question', 'Espaces 3D', '4 x 4 + 3 x 3 = 30 cubes.', 'aide', 3),

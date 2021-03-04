@@ -1,6 +1,7 @@
 package com.universitedebordeaux.joue_maths_gie.ui;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +14,7 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.universitedebordeaux.joue_maths_gie.R;
 import com.universitedebordeaux.joue_maths_gie.db.CardWithLines;
 
@@ -31,6 +33,13 @@ public class CardActivity extends AppCompatActivity {
         setData();
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, CameraActivity.class);
+
+        startActivity(intent);
+    }
+
     private void fillCardsList() {
         Bundle bundle = getIntent().getExtras();
 
@@ -43,7 +52,7 @@ public class CardActivity extends AppCompatActivity {
         TextView tvTitle = findViewById(R.id.card_title);
         TextView tvText = findViewById(R.id.card_content);
         Button responseButton = findViewById(R.id.response_button);
-        ImageButton cameraButton = findViewById(R.id.camera_button);
+        FloatingActionButton cameraButton = findViewById(R.id.card_camera_button);
         ImageButton soundButton = findViewById(R.id.sound_button);
         Button helpButton = findViewById(R.id.card_help_button);
         int color = getColorFromCardType(card.card.title);
@@ -54,12 +63,12 @@ public class CardActivity extends AppCompatActivity {
         tvText.setText(card.getText());
         // TODO: Image
         responseButton.setText(String.format("%s%s", responseButton.getText(),
-                card.card.number.toString()));
+                card.card.cardNumber.toString()));
         responseButton.setOnClickListener(this::onResponseClick);
         responseButton.setBackgroundColor(color);
         cameraButton.setOnClickListener(this::onCameraClick);
         helpButton.setText(String.format("%s%s", helpButton.getText(),
-                card.card.number.toString()));
+                card.card.cardNumber.toString()));
         helpButton.setBackgroundColor(color);
         if (card.card.tip == null || card.card.tip.isEmpty()) {
             helpButton.setBackgroundColor(Color.GRAY);
@@ -67,7 +76,12 @@ public class CardActivity extends AppCompatActivity {
         } else {
             helpButton.setOnClickListener(this::onHelpClick);
         }
-        soundButton.setOnClickListener(this::onSoundClick);
+        if (card.card.soundPath == null || card.card.soundPath.isEmpty()) {
+            soundButton.setBackgroundTintList(ColorStateList.valueOf(Color.GRAY));
+            helpButton.setEnabled(false);
+        } else {
+            soundButton.setOnClickListener(this::onSoundClick);
+        }
     }
 
     @ColorInt
@@ -107,10 +121,7 @@ public class CardActivity extends AppCompatActivity {
     }
 
     private void onCameraClick(View view) {
-        Intent intent = new Intent(this, CameraActivity.class);
-
-        finish();
-        startActivity(intent);
+        onBackPressed();
     }
 
     private void onSoundClick(View view) {

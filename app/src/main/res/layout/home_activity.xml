@@ -63,7 +63,7 @@
             android:layout_height="75dp"
             android:text="@string/rules"
             android:textSize="20sp"
-            android:backgroundTint="@color/cerise_red"
+            android:backgroundTint="@color/lima"
             android:textColor="@android:color/white"/>
 
         <Button
@@ -73,7 +73,7 @@
             android:layout_marginTop="20dp"
             android:text="@string/scan"
             android:textSize="20sp"
-            android:backgroundTint="@color/lima"
+            android:backgroundTint="@color/cerise_red"
             android:textColor="@android:color/white"/>
 
     </LinearLayout>
