@@ -81,7 +81,7 @@ public class CameraActivity extends AppCompatActivity {
     }
 
     private void setData() {
-        FloatingActionButton returnTopButton = findViewById(R.id.return_button);
+        FloatingActionButton returnTopButton = findViewById(R.id.camera_return_button);
         Button codeButton = findViewById(R.id.code_button);
 
         returnTopButton.setOnClickListener(this::onReturnButtonClick);

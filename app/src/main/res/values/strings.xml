@@ -26,4 +26,5 @@
     <string name="updating_data">Chargement des données… Veuillez patienter.</string>
     <string name="card_not_found">La carte associée au code saisi n\'a pas été trouvée.</string>
     <string name="ok">OK</string>
+    <string name="text_rules">-- Règles --</string>
 </resources>

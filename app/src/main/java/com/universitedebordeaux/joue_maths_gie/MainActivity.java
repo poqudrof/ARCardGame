@@ -8,6 +8,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.universitedebordeaux.joue_maths_gie.download.UpdateDBTask;
 import com.universitedebordeaux.joue_maths_gie.ui.CameraActivity;
+import com.universitedebordeaux.joue_maths_gie.ui.RulesActivity;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -52,12 +53,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void setData(boolean hasSavedData) {
         Button scanButton = findViewById(R.id.play_button);
+        Button rulesButton = findViewById(R.id.rules_button);
 
         if (hasSavedData) {
             scanButton.setOnClickListener(this::startScan);
         } else {
             scanButton.setOnClickListener(this::cannotStartScan);
         }
+        rulesButton.setOnClickListener(this::startRules);
     }
 
     private void startScan(View view)
@@ -69,5 +72,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void cannotStartScan(View view) {
         showNoDataSavedToast();
+    }
+
+    private void startRules(View view) {
+        Intent intent = new Intent(this, RulesActivity.class);
+
+        startActivity(intent);
     }
 }
