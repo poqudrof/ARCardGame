@@ -1,8 +1,11 @@
 package com.universitedebordeaux.joue_maths_gie.ui;
 
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -76,12 +79,7 @@ public class CardActivity extends AppCompatActivity {
         } else {
             helpButton.setOnClickListener(this::onHelpClick);
         }
-        if (card.card.soundPath == null || card.card.soundPath.isEmpty()) {
-            soundButton.setBackgroundTintList(ColorStateList.valueOf(Color.GRAY));
-            helpButton.setEnabled(false);
-        } else {
-            soundButton.setOnClickListener(this::onSoundClick);
-        }
+        soundButton.setOnClickListener(this::onSoundClick);
     }
 
     @ColorInt
@@ -125,7 +123,18 @@ public class CardActivity extends AppCompatActivity {
     }
 
     private void onSoundClick(View view) {
-        // TODO: Sound
+        CardWithLines card = cardsWithLines.get(0);
+        MediaPlayer mediaPlayer = new MediaPlayer();
+
+        try {
+            AssetFileDescriptor afd = getAssets().openFd("sounds/" + card.card.id + ".mp3");
+
+            mediaPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+            mediaPlayer.prepare();
+            mediaPlayer.start();
+        } catch (final Exception e) {
+            e.getStackTrace();
+        }
     }
 
     private void onHelpClick(View view) {
