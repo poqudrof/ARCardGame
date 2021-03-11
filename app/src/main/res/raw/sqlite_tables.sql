@@ -4,9 +4,7 @@ CREATE TABLE IF NOT EXISTS Card (
     title       TEXT        NOT NULL,
     answer      TEXT        NOT NULL,
     card_number INTEGER     NOT NULL,
-    tip         TEXT,
-    image_path  TEXT,
-    sound_path  TEXT
+    tip         TEXT
 );
 
 CREATE TABLE IF NOT EXISTS Line (

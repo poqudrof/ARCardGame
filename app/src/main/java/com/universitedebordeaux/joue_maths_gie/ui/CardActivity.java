@@ -5,7 +5,6 @@ import android.content.res.AssetFileDescriptor;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,18 +20,20 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.universitedebordeaux.joue_maths_gie.R;
 import com.universitedebordeaux.joue_maths_gie.db.CardWithLines;
 
+import java.io.IOException;
 import java.util.List;
 
 public class CardActivity extends AppCompatActivity {
 
-    private List<CardWithLines> cardsWithLines;
+    private CardWithLines card;
+    private MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.card_activity);
 
-        fillCardsList();
+        getCard();
         setData();
     }
 
@@ -40,46 +41,68 @@ public class CardActivity extends AppCompatActivity {
     public void onBackPressed() {
         Intent intent = new Intent(this, CameraActivity.class);
 
+        finish();
         startActivity(intent);
     }
 
-    private void fillCardsList() {
+    private void getCard() {
         Bundle bundle = getIntent().getExtras();
+        List<CardWithLines> cardWithLines = bundle.getParcelableArrayList(CameraActivity.cardsList);
 
-        cardsWithLines = bundle.getParcelableArrayList(CameraActivity.cardsList);
+        card = cardWithLines.get(0);
     }
 
     private void setData() {
-        CardWithLines card = cardsWithLines.get(0);
+        FloatingActionButton cameraButton = findViewById(R.id.card_camera_button);
+        int color = getColorFromCardType(card.card.title);
+
+        mediaPlayer = new MediaPlayer();
+        cameraButton.setOnClickListener(this::onCameraClick);
+        setCardTexts(color);
+        setCardButtons(color);
+    }
+
+    private void setCardTexts(@ColorInt int color) {
         TextView tvCode = findViewById(R.id.alert_popup_text);
         TextView tvTitle = findViewById(R.id.card_title);
         TextView tvText = findViewById(R.id.card_content);
-        Button responseButton = findViewById(R.id.response_button);
-        FloatingActionButton cameraButton = findViewById(R.id.card_camera_button);
-        ImageButton soundButton = findViewById(R.id.sound_button);
-        Button helpButton = findViewById(R.id.card_help_button);
-        int color = getColorFromCardType(card.card.title);
 
         tvCode.setText(card.card.id);
         tvTitle.setText(card.card.title);
         tvTitle.setTextColor(color);
         tvText.setText(card.getText());
-        // TODO: Image
+    }
+
+    private void setCardButtons(@ColorInt int color) {
+        Button responseButton = findViewById(R.id.response_button);
+        ImageButton soundButton = findViewById(R.id.sound_button);
+        Button helpButton = findViewById(R.id.card_help_button);
+
         responseButton.setText(String.format("%s%s", responseButton.getText(),
                 card.card.cardNumber.toString()));
         responseButton.setOnClickListener(this::onResponseClick);
         responseButton.setBackgroundColor(color);
-        cameraButton.setOnClickListener(this::onCameraClick);
         helpButton.setText(String.format("%s%s", helpButton.getText(),
                 card.card.cardNumber.toString()));
         helpButton.setBackgroundColor(color);
+
         if (card.card.tip == null || card.card.tip.isEmpty()) {
             helpButton.setBackgroundColor(Color.GRAY);
             helpButton.setEnabled(false);
         } else {
             helpButton.setOnClickListener(this::onHelpClick);
         }
-        soundButton.setOnClickListener(this::onSoundClick);
+
+        try {
+            AssetFileDescriptor afd = getAssets().openFd("sounds/" + card.card.id + ".mp3");
+
+            mediaPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+            mediaPlayer.prepare();
+            soundButton.setOnClickListener(this::onSoundClick);
+        } catch (final IOException e) {
+            soundButton.setBackgroundTintList(ColorStateList.valueOf(Color.GRAY));
+            soundButton.setEnabled(false);
+        }
     }
 
     @ColorInt
@@ -111,7 +134,6 @@ public class CardActivity extends AppCompatActivity {
     }
 
     private void onResponseClick(View view) {
-        CardWithLines card = cardsWithLines.get(0);
         AlertPopupActivity alertPopupActivity = new AlertPopupActivity(getString(R.string.response),
                 card.card.answer, this);
 
@@ -123,22 +145,12 @@ public class CardActivity extends AppCompatActivity {
     }
 
     private void onSoundClick(View view) {
-        CardWithLines card = cardsWithLines.get(0);
-        MediaPlayer mediaPlayer = new MediaPlayer();
-
-        try {
-            AssetFileDescriptor afd = getAssets().openFd("sounds/" + card.card.id + ".mp3");
-
-            mediaPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
-            mediaPlayer.prepare();
+        if (!mediaPlayer.isPlaying()) {
             mediaPlayer.start();
-        } catch (final Exception e) {
-            e.getStackTrace();
         }
     }
 
     private void onHelpClick(View view) {
-        CardWithLines card = cardsWithLines.get(0);
         AlertPopupActivity alertPopupActivity = new AlertPopupActivity(getString(R.string.help),
                 card.card.tip, this);
 
