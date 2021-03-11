@@ -4,10 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
 import android.view.SurfaceView;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -69,13 +72,16 @@ public class CameraActivity extends AppCompatActivity {
 
     private void startCamera() {
         TextRecognizer textRecognizer = new TextRecognizer.Builder(getApplicationContext()).build();
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
 
+        display.getSize(size);
         if (!textRecognizer.isOperational()) {
             Log.w(CameraActivity.class.getSimpleName(), "Detector dependencies are not yet available.");
         } else {
             CameraSource cameraSource = new CameraSource.Builder(getApplicationContext(), textRecognizer)
                     .setFacing(CameraSource.CAMERA_FACING_BACK)
-                    .setRequestedPreviewSize(1280, 1024)
+                    .setRequestedPreviewSize(size.y, size.x)
                     .setAutoFocusEnabled(true)
                     .build();
             cameraView.getHolder().addCallback(new SurfaceHolderCallback(this, cameraView, cameraSource));
