@@ -27,4 +27,9 @@
     <string name="card_not_found">La carte associée au code saisi n\'a pas été trouvée.</string>
     <string name="ok">OK</string>
     <string name="text_rules">-- Règles --</string>
+    <string name="espaces_3d">Espaces 3D</string>
+    <string name="english_maths">English Maths</string>
+    <string name="montagne_de_problemes">Montagne de problèmes</string>
+    <string name="plaine_2d">Plaine de 2D</string>
+    <string name="vallee_des_nombres">Vallée des nombres</string>
 </resources>

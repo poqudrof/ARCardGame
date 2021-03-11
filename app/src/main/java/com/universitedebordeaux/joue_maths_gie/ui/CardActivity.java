@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
@@ -21,6 +23,8 @@ import com.universitedebordeaux.joue_maths_gie.R;
 import com.universitedebordeaux.joue_maths_gie.db.CardWithLines;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
 
 public class CardActivity extends AppCompatActivity {
@@ -59,6 +63,7 @@ public class CardActivity extends AppCompatActivity {
         mediaPlayer = new MediaPlayer();
         cameraButton.setOnClickListener(this::onCameraClick);
         setCardTexts(color);
+        setCardImage();
         setCardButtons(color);
     }
 
@@ -71,6 +76,19 @@ public class CardActivity extends AppCompatActivity {
         tvTitle.setText(card.card.title);
         tvTitle.setTextColor(color);
         tvText.setText(card.getText());
+    }
+
+    private void setCardImage() {
+        ImageView imageView = findViewById(R.id.card_image);
+
+        try {
+            InputStream inputStream = getAssets().open("images/" + card.card.id + ".png");
+            Drawable drawable = Drawable.createFromStream(inputStream, null);
+
+            imageView.setImageDrawable(drawable);
+        } catch (final IOException e) {
+            imageView.setVisibility(View.GONE);
+        }
     }
 
     private void setCardButtons(@ColorInt int color) {
@@ -107,30 +125,30 @@ public class CardActivity extends AppCompatActivity {
 
     @ColorInt
     private int getColorFromCardType(String type) {
+        HashMap<String, Integer> map = loadMap();
+        Integer mapColor;
         int color;
 
-        Log.w(getClass().getSimpleName(), type);
-        switch (type) {
-            case "Espaces 3D":
-                color = getColor(R.color.color_title_espaces_3D);
-                break;
-            case "English Maths":
-                color = getColor(R.color.color_title_english_maths);
-                break;
-            case "Montagne de problème":
-                color = getColor(R.color.color_title_montagne_de_problèmes);
-                break;
-            case "Plaine de 2D":
-                color = getColor(R.color.color_title_plaine_de_2D);
-                break;
-            case "Vallée des nombres":
-                color = getColor(R.color.color_title_vallée_des_nombres);
-                break;
-            default:
-                color = getColor(R.color.cerise_red);
-                break;
+        Log.w(getClass().getSimpleName(), "Current type: " + type);
+        mapColor = map.getOrDefault(type, getColor(R.color.cerise_red));
+
+        if (mapColor == null) {
+            color = getColor(R.color.cerise_red);
+        } else {
+            color = mapColor;
         }
         return color;
+    }
+
+    private HashMap<String, Integer> loadMap() {
+        HashMap<String, Integer> map = new HashMap<>();
+
+        map.put(getString(R.string.espaces_3d), getColor(R.color.color_title_espaces_3D));
+        map.put(getString(R.string.vallee_des_nombres), getColor(R.color.color_title_vallée_des_nombres));
+        map.put(getString(R.string.montagne_de_problemes), getColor(R.color.color_title_montagne_de_problèmes));
+        map.put(getString(R.string.english_maths), getColor(R.color.color_title_english_maths));
+        map.put(getString(R.string.plaine_2d), getColor(R.color.color_title_plaine_de_2D));
+        return map;
     }
 
     private void onResponseClick(View view) {
