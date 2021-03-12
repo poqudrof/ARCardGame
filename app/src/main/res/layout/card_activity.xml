@@ -32,7 +32,7 @@
         android:layout_marginEnd="10dp">
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/alert_popup_text"
+            android:id="@+id/card_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAlignment="textStart"
@@ -52,25 +52,38 @@
             android:textColor="@color/lima"
             android:layout_marginTop="20dp"/>
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/card_content"
-            android:layout_width="wrap_content"
+        <ScrollView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="28sp"
-            tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et congue nunc."
-            android:textColor="@android:color/black"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp">
 
-        <ImageView
-            android:id="@+id/card_image"
-            android:layout_width="280dp"
-            android:layout_height="280dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:scaleType="fitXY"
-            tools:src="@mipmap/picture_test"
-            android:contentDescription="@string/card_image_description"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/card_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textSize="28sp"
+                    tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et congue nunc."
+                    android:textColor="@android:color/black" />
+
+                <ImageView
+                    android:id="@+id/card_image"
+                    android:layout_width="280dp"
+                    android:layout_height="280dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="30dp"
+                    android:scaleType="fitXY"
+                    tools:src="@mipmap/picture_test"
+                    android:contentDescription="@string/card_image_description"/>
+
+            </LinearLayout>
+
+        </ScrollView>
 
     </LinearLayout>
 
@@ -83,7 +96,8 @@
         android:orientation="horizontal"
         android:gravity="bottom|center"
         android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp">
+        android:layout_marginEnd="10dp"
+        android:background="@android:color/white">
 
         <LinearLayout
             android:layout_width="wrap_content"

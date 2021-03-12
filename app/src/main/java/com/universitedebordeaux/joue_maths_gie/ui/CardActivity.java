@@ -68,7 +68,7 @@ public class CardActivity extends AppCompatActivity {
     }
 
     private void setCardTexts(@ColorInt int color) {
-        TextView tvCode = findViewById(R.id.alert_popup_text);
+        TextView tvCode = findViewById(R.id.card_code);
         TextView tvTitle = findViewById(R.id.card_title);
         TextView tvText = findViewById(R.id.card_content);
 
