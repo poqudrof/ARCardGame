@@ -43,6 +43,19 @@ public class CardActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        try {
+            if (mediaPlayer.isPlaying()) {
+                mediaPlayer.stop();
+            }
+            mediaPlayer.release();
+        } catch (final IllegalStateException e) {
+            // Do nothing.
+        }
+        super.onDestroy();
+    }
+
+    @Override
     public void onBackPressed() {
         Intent intent = new Intent(this, CameraActivity.class);
 
