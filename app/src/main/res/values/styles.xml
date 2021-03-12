@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/port_gore</item>
         <item name="colorPrimaryDark">@color/royal_purple</item>
         <item name="colorAccent">@color/cerise_red</item>
+        <item name="android:fontFamily">@font/fredoka_one_regular</item>
         <item name="fontFamily">@font/fredoka_one_regular</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -17,6 +18,16 @@
     <style name="ShapeRoundedButton">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">18dp</item>
+    </style>
+
+    <style name="AvenirFont">
+        <item name="fontFamily">@font/avenir_regular</item>
+        <item name="android:fontFamily">@font/avenir_regular</item>
+    </style>
+
+    <style name="GaladaFont">
+        <item name="fontFamily">@font/galada_regular</item>
+        <item name="android:fontFamily">@font/galada_regular</item>
     </style>
 
 </resources>
