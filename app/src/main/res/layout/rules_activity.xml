@@ -17,36 +17,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <!--
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="15dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp">
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/text_rules"
-                android:gravity="center"
-                android:textSize="30sp"
-                android:textColor="@color/lima"/>
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/rules_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="start"
-                android:textSize="22sp"
-                android:layout_marginTop="20dp"
-                android:textColor="@android:color/black"
-                tools:text="Hello world. This is a text."/>
-
-        </LinearLayout>
-        -->
-
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
