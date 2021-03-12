@@ -9,6 +9,7 @@ import androidx.annotation.LayoutRes;
 
 import java.lang.ref.WeakReference;
 
+// Popup abstraction.
 public abstract class AbstractPopup {
 
     protected final WeakReference<Activity> activity;

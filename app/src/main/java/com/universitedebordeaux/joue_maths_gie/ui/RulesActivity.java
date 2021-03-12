@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.universitedebordeaux.joue_maths_gie.R;
 
+// Activity to display the game's rules as an web page.
 public class RulesActivity extends AppCompatActivity {
 
     @Override

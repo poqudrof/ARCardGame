@@ -15,6 +15,7 @@ import com.universitedebordeaux.joue_maths_gie.ui.RulesActivity;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+// The main menu of the application. Also the starting point.
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -22,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity);
 
-        // Updating the database at the start.
         updateDatabase();
     }
 
@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     showNoDataSavedToast();
                 }
-                // Now connecting all buttons.
                 setData(hasSavedData);
             });
         });

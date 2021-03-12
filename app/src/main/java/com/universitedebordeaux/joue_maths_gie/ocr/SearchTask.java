@@ -11,7 +11,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-// Compare words received and card in database
+// Compare words received and card in database.
 public class SearchTask {
 
     public List<CardWithLines> doInBackground(String[] lines) {

@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-// Recognition and preview activity.
+// The activity to start the camera and the OCR to scan cards.
 public class CameraActivity extends AppCompatActivity {
 
     public static final String cardsList = "CARDS_LIST";
@@ -62,8 +62,7 @@ public class CameraActivity extends AppCompatActivity {
         if (requestCode == requestCameraPermissionID) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 recreate();
-            }
-            else {
+            } else {
                 onBackPressed();
             }
         }

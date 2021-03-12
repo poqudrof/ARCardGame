@@ -27,6 +27,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 
+// The activity to display the card found in the CameraActivity.
 public class CardActivity extends AppCompatActivity {
 
     private CardWithLines card;

@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.universitedebordeaux.joue_maths_gie.R;
 import org.jetbrains.annotations.NotNull;
 
+// Popup to ask the user a text.
 public class ActionPopupActivity extends AbstractPopup {
 
     public interface ActionPopupButtonHandler {
