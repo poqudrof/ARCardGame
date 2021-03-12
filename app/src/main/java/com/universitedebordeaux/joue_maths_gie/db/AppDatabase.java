@@ -24,4 +24,8 @@ public abstract class AppDatabase extends RoomDatabase {
                    .createFromAsset(context.getString(R.string.db_name))
                    .build();
     }
+
+    public static void removeDatabase(Context context) {
+        context.deleteDatabase(context.getString(R.string.db_name));
+    }
 }

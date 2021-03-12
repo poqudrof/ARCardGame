@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.universitedebordeaux.joue_maths_gie.db.AppDatabase;
 import com.universitedebordeaux.joue_maths_gie.download.UpdateDBTask;
 import com.universitedebordeaux.joue_maths_gie.ui.CameraActivity;
 import com.universitedebordeaux.joue_maths_gie.ui.RulesActivity;
@@ -22,6 +24,12 @@ public class MainActivity extends AppCompatActivity {
 
         // Updating the database at the start.
         updateDatabase();
+    }
+
+    @Override
+    protected void onDestroy() {
+        AppDatabase.removeDatabase(this);
+        super.onDestroy();
     }
 
     private void updateDatabase() {
