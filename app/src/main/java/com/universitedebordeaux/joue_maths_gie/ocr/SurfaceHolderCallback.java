@@ -28,6 +28,7 @@ public class SurfaceHolderCallback implements SurfaceHolder.Callback {
         cameraSourceReference = new WeakReference<>(cameraSource);
     }
 
+    // create surface for the camera and talk about camera permission
     @Override
     public void surfaceCreated(@NonNull SurfaceHolder holder) {
         try {
@@ -43,15 +44,18 @@ public class SurfaceHolderCallback implements SurfaceHolder.Callback {
         }
     }
 
+    // change the surface
     @Override
     public void surfaceChanged(@NonNull SurfaceHolder holder, int format, int width, int height) {
     }
 
+    // destroy the camera
     @Override
     public void surfaceDestroyed(@NonNull SurfaceHolder holder) {
         cameraSourceReference.get().stop();
     }
 
+    // check if camera had the permission
     private boolean checkCameraPermission() {
         return ActivityCompat.checkSelfPermission(activityReference.get(),
                 Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED;

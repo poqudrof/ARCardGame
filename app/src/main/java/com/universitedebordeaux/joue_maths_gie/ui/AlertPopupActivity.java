@@ -14,6 +14,7 @@ public class AlertPopupActivity extends AbstractPopup {
         setData(title, text);
     }
 
+    // print response or help popup
     private void setData(String title, String text) {
         TextView tvTitle = dialog.findViewById(R.id.alert_popup_title);
         TextView tvContent = dialog.findViewById(R.id.alert_popup_text);

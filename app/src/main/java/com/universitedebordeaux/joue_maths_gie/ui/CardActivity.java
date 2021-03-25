@@ -42,6 +42,7 @@ public class CardActivity extends AppCompatActivity {
         setData();
     }
 
+    // avoid the music playing when the activity is closed
     @Override
     protected void onDestroy() {
         try {
@@ -55,6 +56,7 @@ public class CardActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
+    // when clicking on the back button always starting the camera activity
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(this, CameraActivity.class);
@@ -63,6 +65,7 @@ public class CardActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    // take the card from the ocr taking
     private void getCard() {
         Bundle bundle = getIntent().getExtras();
         List<CardWithLines> cardWithLines = bundle.getParcelableArrayList(CameraActivity.cardsList);
@@ -70,6 +73,7 @@ public class CardActivity extends AppCompatActivity {
         card = cardWithLines.get(0);
     }
 
+    // parameter the card
     private void setData() {
         FloatingActionButton cameraButton = findViewById(R.id.card_camera_button);
         int color = getColorFromCardType(card.card.title);
@@ -81,6 +85,7 @@ public class CardActivity extends AppCompatActivity {
         setCardButtons(color);
     }
 
+    // modify the text
     private void setCardTexts(@ColorInt int color) {
         TextView tvCode = findViewById(R.id.card_code);
         TextView tvTitle = findViewById(R.id.card_title);
@@ -92,6 +97,7 @@ public class CardActivity extends AppCompatActivity {
         tvText.setText(card.getText());
     }
 
+    // modify the picture
     private void setCardImage() {
         ImageView imageView = findViewById(R.id.card_image);
 
@@ -105,6 +111,7 @@ public class CardActivity extends AppCompatActivity {
         }
     }
 
+    // modify the buttons (change in grey if is active or not)
     private void setCardButtons(@ColorInt int color) {
         Button responseButton = findViewById(R.id.response_button);
         ImageButton soundButton = findViewById(R.id.sound_button);
@@ -137,6 +144,7 @@ public class CardActivity extends AppCompatActivity {
         }
     }
 
+    // obtain the color of type
     @ColorInt
     private int getColorFromCardType(String type) {
         HashMap<String, Integer> map = loadMap();
@@ -154,6 +162,7 @@ public class CardActivity extends AppCompatActivity {
         return color;
     }
 
+    // fill the color linked with the type
     private HashMap<String, Integer> loadMap() {
         HashMap<String, Integer> map = new HashMap<>();
 
@@ -165,6 +174,7 @@ public class CardActivity extends AppCompatActivity {
         return map;
     }
 
+    // event for the response popup
     private void onResponseClick(View view) {
         AlertPopupActivity alertPopupActivity = new AlertPopupActivity(getString(R.string.response),
                 card.card.answer, this);
@@ -172,16 +182,19 @@ public class CardActivity extends AppCompatActivity {
         alertPopupActivity.showDialog();
     }
 
+    // return to the camera activity
     private void onCameraClick(View view) {
         onBackPressed();
     }
 
+    // activate the sound
     private void onSoundClick(View view) {
         if (!mediaPlayer.isPlaying()) {
             mediaPlayer.start();
         }
     }
 
+    // event for the help popup
     private void onHelpClick(View view) {
         AlertPopupActivity alertPopupActivity = new AlertPopupActivity(getString(R.string.help),
                 card.card.tip, this);

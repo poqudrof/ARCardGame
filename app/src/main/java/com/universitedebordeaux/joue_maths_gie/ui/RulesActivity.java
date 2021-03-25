@@ -21,6 +21,7 @@ public class RulesActivity extends AppCompatActivity {
         readHtml();
     }
 
+    // print the rules by a static html page
     @SuppressLint("SetJavaScriptEnabled")
     private void readHtml() {
         WebView webView = findViewById(R.id.rules_web_view);
