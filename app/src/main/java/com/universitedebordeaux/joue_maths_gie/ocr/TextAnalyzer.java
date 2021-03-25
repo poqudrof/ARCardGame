@@ -17,7 +17,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-// Receive and analyze different group of words than OCR could receive
+// Receive and analyze different group of words than OCR could receive.
 public class TextAnalyzer implements Detector.Processor<TextBlock> {
 
     private final WeakReference<CameraActivity> mRefActivity;

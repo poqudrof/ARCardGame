@@ -1,16 +1,16 @@
 package com.universitedebordeaux.joue_maths_gie.ui;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.universitedebordeaux.joue_maths_gie.R;
-import java.io.*;
 
+import com.universitedebordeaux.joue_maths_gie.R;
+
+// Activity to display the game's rules as an web page.
 public class RulesActivity extends AppCompatActivity {
 
     @Override
@@ -18,30 +18,15 @@ public class RulesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.rules_activity);
 
-        readText();
+        readHtml();
     }
 
-    private void readText() {
-        TextView txtView = findViewById(R.id.rules_text);
-        StringBuilder text = new StringBuilder();
+    @SuppressLint("SetJavaScriptEnabled")
+    private void readHtml() {
+        WebView webView = findViewById(R.id.rules_web_view);
+        WebSettings webSettings = webView.getSettings();
 
-        try {
-            InputStream inputStream = getAssets().open("rules.txt");
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-            String line;
-
-            while ((line = bufferedReader.readLine()) != null) {
-                text.append(line);
-                text.append('\n');
-            }
-            bufferedReader.close();
-
-        } catch (final IOException e) {
-            Log.e(getClass().getSimpleName(), e.getMessage());
-            e.printStackTrace();
-            return;
-        }
-
-        txtView.setText(text.toString());
+        webSettings.setJavaScriptEnabled(true);
+        webView.loadUrl("file:///android_asset/rules.html");
     }
 }

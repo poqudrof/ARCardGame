@@ -42,14 +42,6 @@ public class Card implements Parcelable {
     // Example : "Ceci est un message d'aide."
     public String tip;
 
-    @ColumnInfo(name = "image_path")
-    // Example : "image/image.png"
-    public String imagePath;
-
-    @ColumnInfo(name = "sound_path")
-    // Example : "sound/sound.mp4"
-    public String soundPath;
-
     // Card constructor.
     public Card(@NonNull String id, @NonNull String type, @NonNull String title,
                 @NonNull String answer, @NonNull Integer cardNumber) {
@@ -67,8 +59,6 @@ public class Card implements Parcelable {
         answer = in.readString();
         cardNumber = in.readInt();
         tip = in.readString();
-        imagePath = in.readString();
-        soundPath = in.readString();
     }
 
     public static final Creator<Card> CREATOR = new Creator<Card>() {
@@ -96,7 +86,5 @@ public class Card implements Parcelable {
         dest.writeString(answer);
         dest.writeInt(cardNumber);
         dest.writeString(tip);
-        dest.writeString(imagePath);
-        dest.writeString(soundPath);
     }
 }
