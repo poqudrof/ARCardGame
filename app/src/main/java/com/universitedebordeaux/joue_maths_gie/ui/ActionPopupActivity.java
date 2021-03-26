@@ -18,6 +18,7 @@ public class ActionPopupActivity extends AbstractPopup {
     private EditText etField;
     private final ActionPopupButtonHandler buttonHandler;
 
+    // open popup when user click on action popup activity
     public ActionPopupActivity(String title, String hintText, Activity activity,
                                ActionPopupButtonHandler buttonHandler) {
         super(activity, R.layout.action_popup_activity);
@@ -25,10 +26,12 @@ public class ActionPopupActivity extends AbstractPopup {
         setData(title, hintText);
     }
 
+    // set the text
     public void setText(String editText) {
         etField.setText(editText);
     }
 
+    // where the user can be write the code of a card
     private void setData(String title, String hintText) {
         TextView tvTitle = dialog.findViewById(R.id.action_popup_title);
         Button button = dialog.findViewById(R.id.action_popup_bouton);

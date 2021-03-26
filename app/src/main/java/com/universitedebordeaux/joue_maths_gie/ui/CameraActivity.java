@@ -55,6 +55,7 @@ public class CameraActivity extends AppCompatActivity {
         setData();
     }
 
+    // request permission for the camera
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull @NotNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -68,6 +69,7 @@ public class CameraActivity extends AppCompatActivity {
         }
     }
 
+    // start the camera and fix the focus and the size of the camera
     private void startCamera() {
         TextRecognizer textRecognizer = new TextRecognizer.Builder(getApplicationContext()).build();
         Display display = getWindowManager().getDefaultDisplay();
@@ -87,6 +89,7 @@ public class CameraActivity extends AppCompatActivity {
         }
     }
 
+    // when you click on the button code button, camera is active
     private void setData() {
         Button codeButton = findViewById(R.id.code_button);
 
@@ -98,6 +101,7 @@ public class CameraActivity extends AppCompatActivity {
         popupActivity.showDialog();
     }
 
+    // start the ocr with card analyse
     private void onCodeResult(@NotNull String editTextResult) {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
 
@@ -121,10 +125,12 @@ public class CameraActivity extends AppCompatActivity {
         });
     }
 
+    // save the code of the card
     private void saveCardCode(@NonNull String code) {
         sharedPreferences.edit().putString("code", code).apply();
     }
 
+    // restore code if code is incorrect
     private void restoreCardCodeIfAny() {
         String code = sharedPreferences.getString("code", null);
 

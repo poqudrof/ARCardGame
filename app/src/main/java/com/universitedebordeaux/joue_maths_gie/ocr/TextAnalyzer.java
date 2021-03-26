@@ -32,6 +32,7 @@ public class TextAnalyzer implements Detector.Processor<TextBlock> {
     public void release() {
     }
 
+    // receive the text from ocr and put it on a list
     @Override
     public void receiveDetections(@NonNull Detector.Detections<TextBlock> detections) {
         final SparseArray<TextBlock> items = detections.getDetectedItems();
