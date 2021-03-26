@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 // Matches to a card with its text, in other words its Line list.
+// Parcelable not tested since a long time ago.
 public class CardWithLines implements Parcelable {
 
     @Embedded

@@ -44,30 +44,38 @@ public class TextAnalyzer implements Detector.Processor<TextBlock> {
                 list.add(item.getValue());
             }
         }
-        if (!list.isEmpty()) {
-            ExecutorService executorService = Executors.newSingleThreadExecutor();
 
-            executorService.execute(() -> {
-                CameraActivity activity = mRefActivity.get();
-                SearchTask task = new SearchTask();
-                List<CardWithLines> cards;
+        if(list.isEmpty()){
+            return;
+        }
 
-                for (final String str : list) {
-                    Log.d(getClass().getSimpleName(), str);
-                }
-                cards = task.doInBackground(list.toArray(new String[0]));
-                if (cards != null && !cards.isEmpty()) {
-                    activity.runOnUiThread(() -> {
-                        // Blocked any thread that attempts to start the card activity
-                        // at the same time.
-                        if (aBoolean.compareAndSet(true, false)) {
-                            activity.doOnResult(cards);
-                            // Release the TextAnalyzer class after successful result.
-                            release();
-                        }
-                    });
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+
+        executorService.execute(() -> {
+            CameraActivity activity = mRefActivity.get();
+            SearchTask task = new SearchTask();
+            List<CardWithLines> cards;
+
+            for (final String str : list) {
+                Log.d(getClass().getSimpleName(), str);
+            }
+            cards = task.doInBackground(list.toArray(new String[0]));
+
+            if(cards == null || cards.isEmpty()){
+                return;
+            }
+
+            activity.runOnUiThread(() -> {
+                // Blocked any thread that attempts to start the card activity
+                // at the same time.
+                if (aBoolean.compareAndSet(true, false)) {
+                    activity.doOnResult(cards);
+                    // Release the TextAnalyzer class after successful result.
+                    release();
                 }
             });
-        }
+
+        });
+
     }
 }
