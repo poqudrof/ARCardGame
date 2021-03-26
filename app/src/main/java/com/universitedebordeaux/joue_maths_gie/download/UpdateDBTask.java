@@ -41,6 +41,7 @@ public class UpdateDBTask {
         return true;
     }
 
+    // Load the database by create it.
     private void loadDatabase() {
         Context context = mContext.get();
 

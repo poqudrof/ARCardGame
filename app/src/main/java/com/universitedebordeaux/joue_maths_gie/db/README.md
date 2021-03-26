@@ -8,11 +8,11 @@ The database contains only two tables. The text of a **card** is separated into 
 | Card | Line | 
 |---:|---:|
 | id (TEXT) | id (INT)|
-| type (TEXT) | cardId (TEXT) |
+| type (TEXT) | card_id (TEXT) |
 | title (TEXT) | contents (TEXT) |
 | answer (TEXT) |
 | tip (TEXT) |
-| number (INT) |
+| card_number (INT) |
 
 **Card** table :
 - **id** : unique card identifier, example : "e3dcm1q_1".
@@ -20,11 +20,11 @@ The database contains only two tables. The text of a **card** is separated into 
 - **title** : subject area, example "Espaces 3D".
 - **answer** : the answer to the question asked.
 - **tip**: help to the question.
-- **number** : question number.
+- **card_number** : question number.
 
 **Line** table :
 - **id** : auto-generated incremental identifier.
-- **cardId** : card identifier associated with this line.
+- **card_id** : card identifier associated with this line.
 - **contents** : line content.
 
 ## Architecture

@@ -25,6 +25,10 @@ public abstract class AppDatabase extends RoomDatabase {
                    .build();
     }
 
+    // Delete the database.
+    // N.B : All database is permanently stored inside the phone. If you decide to change the tables for
+    // example, you will have annoying SQL errors.
+    // Delete it each time the application stopped (without crashing).
     public static void removeDatabase(Context context) {
         context.deleteDatabase(context.getString(R.string.db_name));
     }
