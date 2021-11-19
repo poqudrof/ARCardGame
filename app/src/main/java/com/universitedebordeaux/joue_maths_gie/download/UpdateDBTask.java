@@ -32,6 +32,7 @@ public class UpdateDBTask {
         Context context = mContext.get();
         AssetManager assetManager = context.getAssets();
 
+        // This checks only if the file exists... ?
         try {
             assetManager.open(context.getString(R.string.db_name));
         } catch (IOException e) {

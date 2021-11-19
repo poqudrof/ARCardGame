@@ -19,6 +19,8 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract LineSQLDao lineDao();
 
     // Import the database from the local db class stored in the assets folder.
+    // TODO: problem with a HARD CODED DATABASE NAME
+    // The loader should handle this.
     public static AppDatabase create(Context context) {
         return Room.databaseBuilder(context, AppDatabase.class, context.getString(R.string.db_name))
                    .createFromAsset(context.getString(R.string.db_name))

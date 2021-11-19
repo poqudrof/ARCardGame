@@ -46,13 +46,16 @@ public class CameraActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.camera_activity);
-
+        Button codeButton = findViewById(R.id.code_button);
         cameraView = findViewById(R.id.camera_view);
-        popupActivity = new ActionPopupActivity(getString(R.string.code_title), getString(R.string.code_hint),
-                this, this::onCodeResult);
+        popupActivity = new ActionPopupActivity(getString(R.string.code_title),
+                                                getString(R.string.code_hint),
+                                                this, this::onCodeResult);
         sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         startCamera();
-        setData();
+
+        // when you click on the button code button, camera is active
+        codeButton.setOnClickListener(this::showCodePopUp);
     }
 
     // request permission for the camera
@@ -89,15 +92,10 @@ public class CameraActivity extends AppCompatActivity {
         }
     }
 
-    // when you click on the button code button, camera is active
-    private void setData() {
-        Button codeButton = findViewById(R.id.code_button);
-
-        codeButton.setOnClickListener(this::onCodeButtonClick);
-    }
-
-    private void onCodeButtonClick(View view) {
-        restoreCardCodeIfAny();
+    // restore code if code is incorrect
+    private void showCodePopUp(View view) {
+        String code = sharedPreferences.getString("code", null);
+        popupActivity.setText(code);
         popupActivity.showDialog();
     }
 
@@ -128,13 +126,6 @@ public class CameraActivity extends AppCompatActivity {
     // save the code of the card
     private void saveCardCode(@NonNull String code) {
         sharedPreferences.edit().putString("code", code).apply();
-    }
-
-    // restore code if code is incorrect
-    private void restoreCardCodeIfAny() {
-        String code = sharedPreferences.getString("code", null);
-
-        popupActivity.setText(code);
     }
 
     // Send and send the recognition result to the card activity.

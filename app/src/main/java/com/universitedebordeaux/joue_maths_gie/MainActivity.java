@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity);
-
         updateDatabase();
     }
 
@@ -32,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
+    // TODO: This could check for updates on a server.
+    // Once the database is loaded, the button to start is activated.
     private void updateDatabase() {
         Toast updateToast;
         ExecutorService executorService = Executors.newSingleThreadExecutor();
@@ -45,35 +46,39 @@ public class MainActivity extends AppCompatActivity {
             updateToast.cancel();
             runOnUiThread(() -> {
                 if (hasSavedData) {
-                    Toast.makeText(this, R.string.data_restored_ok, Toast.LENGTH_SHORT).show();
-                } else {
+                    showDataSavedToast();
+                 } else {
                     showNoDataSavedToast();
                 }
-                setData(hasSavedData);
+                setListeners(hasSavedData);
             });
         });
     }
 
+    private void showDataSavedToast() {
+        Toast.makeText(this, R.string.data_restored_ok, Toast.LENGTH_LONG).show();
+    }
     private void showNoDataSavedToast() {
         Toast.makeText(this, R.string.no_data_stored, Toast.LENGTH_LONG).show();
     }
 
-    private void setData(boolean hasSavedData) {
+    private void setListeners(boolean hasSavedData) {
         Button scanButton = findViewById(R.id.play_button);
         Button rulesButton = findViewById(R.id.rules_button);
 
+        // impossible to click if the data was not loaded
         if (hasSavedData) {
-            scanButton.setOnClickListener(this::startScan);
+            scanButton.setOnClickListener(this::loadCameraView);
         } else {
+            // When the button is pressed, the error toast is showed again.
             scanButton.setOnClickListener(this::cannotStartScan);
         }
         rulesButton.setOnClickListener(this::startRules);
     }
 
-    private void startScan(View view)
+    private void loadCameraView(View view)
     {
         Intent intent = new Intent(this, CameraActivity.class);
-
         startActivity(intent);
     }
 
@@ -83,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void startRules(View view) {
         Intent intent = new Intent(this, RulesActivity.class);
-
         startActivity(intent);
     }
 }
