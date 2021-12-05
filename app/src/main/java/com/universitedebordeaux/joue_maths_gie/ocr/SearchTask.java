@@ -20,13 +20,13 @@ public class SearchTask {
         }
 
         // Build Card Map : card id with recognition score.
-        Map<String, Long> cardMap = Arrays.stream(lines)
+        Map<Integer, Long> cardMap = Arrays.stream(lines)
                 .map(AppDatabase.db.lineDao()::getLinesByContents)
                 .flatMap(List::stream)
-                .map(line -> line.cardId)
+                .map(line -> line.card)
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 
-        String cardId = null;
+        Integer cardId = null;
 
         // No Card.
         if (cardMap.isEmpty()) {
@@ -37,7 +37,7 @@ public class SearchTask {
         } else {
             // Multiple cards, we need to go deeper.
             // Choose the card with the best score.
-            Optional<String> maybeCardId = cardMap.entrySet().stream().max(Map.Entry.comparingByValue()).map(Map.Entry::getKey);
+            Optional<Integer> maybeCardId = cardMap.entrySet().stream().max(Map.Entry.comparingByValue()).map(Map.Entry::getKey);
 
             if (maybeCardId.isPresent()) {
                 cardId = maybeCardId.get();
@@ -52,7 +52,7 @@ public class SearchTask {
         return Stream.of(pick(cardId)).collect(Collectors.toList());
     }
 
-    private CardWithLines pick(String cardId) {
-        return AppDatabase.db.cardDao().getCardWithLines(cardId);
+    private CardWithLines pick(Integer cardId) {
+        return AppDatabase.db.cardDao().getCardFromIdWithLines(cardId);
     }
 }

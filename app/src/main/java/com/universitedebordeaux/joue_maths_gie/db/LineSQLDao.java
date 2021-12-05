@@ -10,6 +10,8 @@ import java.util.List;
 // DAO Line only.
 public interface LineSQLDao {
 
+
+    // ONE USE -> Find by content in search task...
     // Find a line by its text.
     @Query("SELECT * FROM Line WHERE line = :text")
     List<Line> getLinesByContents(String text);

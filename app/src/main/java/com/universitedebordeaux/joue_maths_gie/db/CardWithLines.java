@@ -16,9 +16,9 @@ public class CardWithLines implements Parcelable {
 
     @Embedded
     // The selected card.
-    public Card card;
+    public Cards cards;
 
-    @Relation(parentColumn = "id", entityColumn = "card_id")
+    @Relation(parentColumn = "id", entityColumn = "card")
     // The lines associated with the card.
     public List<Line> lines;
 
@@ -31,7 +31,7 @@ public class CardWithLines implements Parcelable {
     }
 
     protected CardWithLines(Parcel in) {
-        card = in.readParcelable(Card.class.getClassLoader());
+        cards = in.readParcelable(Cards.class.getClassLoader());
         lines = in.createTypedArrayList(Line.CREATOR);
     }
 
@@ -54,7 +54,7 @@ public class CardWithLines implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeParcelable(card, flags);
+        dest.writeParcelable(cards, flags);
         dest.writeTypedList(lines);
     }
 

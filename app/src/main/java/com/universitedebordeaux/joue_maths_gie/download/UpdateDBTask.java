@@ -5,9 +5,11 @@ import android.content.res.AssetManager;
 import android.util.Log;
 import com.universitedebordeaux.joue_maths_gie.R;
 import com.universitedebordeaux.joue_maths_gie.db.AppDatabase;
+import com.universitedebordeaux.joue_maths_gie.db.Cards;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.util.List;
 
 // Task to manages the database update mechanism.
 public class UpdateDBTask {
@@ -47,5 +49,8 @@ public class UpdateDBTask {
         Context context = mContext.get();
 
         AppDatabase.db = AppDatabase.create(context);
+        List<Cards> cards = AppDatabase.db.cardDao().getAll();
+        Log.v("card", "NB cards found: " + cards.size());
+        // Log.v("CARD", card);
     }
 }

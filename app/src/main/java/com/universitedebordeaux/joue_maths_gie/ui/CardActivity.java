@@ -76,7 +76,7 @@ public class CardActivity extends AppCompatActivity {
     // parameter the card
     private void setData() {
         FloatingActionButton cameraButton = findViewById(R.id.card_camera_button);
-        int color = getColorFromCardType(card.card.title);
+        int color = getColorFromCardType(card.cards.card_type);
 
         mediaPlayer = new MediaPlayer();
         cameraButton.setOnClickListener(this::onCameraClick);
@@ -91,8 +91,8 @@ public class CardActivity extends AppCompatActivity {
         TextView tvTitle = findViewById(R.id.card_title);
         TextView tvText = findViewById(R.id.card_content);
 
-        tvCode.setText(card.card.id);
-        tvTitle.setText(card.card.title);
+        tvCode.setText(card.cards.id);
+        tvTitle.setText(card.cards.card_type);
         tvTitle.setTextColor(color);
         tvText.setText(card.getText());
     }
@@ -102,7 +102,7 @@ public class CardActivity extends AppCompatActivity {
         ImageView imageView = findViewById(R.id.card_image);
 
         try {
-            InputStream inputStream = getAssets().open("images/" + card.card.id + ".png");
+            InputStream inputStream = getAssets().open("images/" + card.cards.id + ".png");
             Drawable drawable = Drawable.createFromStream(inputStream, null);
 
             imageView.setImageDrawable(drawable);
@@ -118,14 +118,14 @@ public class CardActivity extends AppCompatActivity {
         Button helpButton = findViewById(R.id.card_help_button);
 
         responseButton.setText(String.format("%s%s", responseButton.getText(),
-                card.card.cardNumber.toString()));
+                card.cards.number_in_role.toString()));
         responseButton.setOnClickListener(this::onResponseClick);
         responseButton.setBackgroundColor(color);
         helpButton.setText(String.format("%s%s", helpButton.getText(),
-                card.card.cardNumber.toString()));
+                card.cards.number_in_role.toString()));
         helpButton.setBackgroundColor(color);
 
-        if (card.card.tip == null || card.card.tip.isEmpty()) {
+        if (card.cards.tip == null || card.cards.tip.isEmpty()) {
             helpButton.setBackgroundColor(Color.GRAY);
             helpButton.setEnabled(false);
         } else {
@@ -133,7 +133,7 @@ public class CardActivity extends AppCompatActivity {
         }
 
         try {
-            AssetFileDescriptor afd = getAssets().openFd("sounds/" + card.card.id + ".mp3");
+            AssetFileDescriptor afd = getAssets().openFd("sounds/" + card.cards.id + ".mp3");
 
             mediaPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
             mediaPlayer.prepare();
@@ -177,7 +177,7 @@ public class CardActivity extends AppCompatActivity {
     // event for the response popup
     private void onResponseClick(View view) {
         AlertPopupActivity alertPopupActivity = new AlertPopupActivity(getString(R.string.response),
-                card.card.answer, this);
+                card.cards.answer, this);
 
         alertPopupActivity.showDialog();
     }
@@ -197,7 +197,7 @@ public class CardActivity extends AppCompatActivity {
     // event for the help popup
     private void onHelpClick(View view) {
         AlertPopupActivity alertPopupActivity = new AlertPopupActivity(getString(R.string.help),
-                card.card.tip, this);
+                card.cards.tip, this);
 
         alertPopupActivity.showDialog();
     }

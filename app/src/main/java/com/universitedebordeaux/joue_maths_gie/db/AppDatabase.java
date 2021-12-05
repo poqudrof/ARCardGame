@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase;
 import com.universitedebordeaux.joue_maths_gie.R;
 
 // Singleton class to manage the SQLite database, cannot be called in the graphics thread.
-@Database(entities = {Card.class, Line.class}, version = 1, exportSchema = false)
+@Database(entities = {Cards.class, Line.class}, version = 2, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     public static AppDatabase db = null;
@@ -23,6 +23,7 @@ public abstract class AppDatabase extends RoomDatabase {
     // The loader should handle this.
     public static AppDatabase create(Context context) {
         return Room.databaseBuilder(context, AppDatabase.class, context.getString(R.string.db_name))
+                   .fallbackToDestructiveMigration()
                    .createFromAsset(context.getString(R.string.db_name))
                    .build();
     }

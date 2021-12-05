@@ -8,9 +8,9 @@ import androidx.room.*;
 
 @Entity(
         foreignKeys = @ForeignKey(
-                entity = Card.class,
+                entity = Cards.class,
                 parentColumns = "id",
-                childColumns = "card_id",
+                childColumns = "card",
                 onDelete = ForeignKey.CASCADE)
 )
 // Class that matches to the Line table in the .db file.
@@ -21,25 +21,25 @@ public class Line implements Parcelable {
     public Integer id;
 
     @NonNull
-    @ColumnInfo(name = "card_id", index = true)
+    @ColumnInfo(name = "card", index = true)
     // Linked to the associated card.
-    // Example : "e3dcm1q_1"
-    public String cardId;
+    // Example : "2"
+    public int card;
 
     @NonNull
     @ColumnInfo
     // Example : "Combien y-a-t-il de cubes"
     public String line;
 
-    public Line(@NonNull Integer id, @NonNull String cardId, @NonNull String line) {
+    public Line(@NonNull Integer id, @NonNull int card, @NonNull String line) {
         this.id = id;
-        this.cardId = cardId;
+        this.card = card;
         this.line = line;
     }
 
     protected Line(Parcel in) {
         id = in.readInt();
-        cardId = in.readString();
+        card = in.readInt();
         line = in.readString();
     }
 
@@ -63,7 +63,7 @@ public class Line implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
-        dest.writeString(cardId);
+        dest.writeInt(card);
         dest.writeString(line);
     }
 }
