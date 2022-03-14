@@ -7,12 +7,15 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.text.TextBlock;
+import com.universitedebordeaux.joue_maths_gie.db.Card;
 import com.universitedebordeaux.joue_maths_gie.db.CardWithLines;
 import com.universitedebordeaux.joue_maths_gie.ui.CameraActivity;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -36,16 +39,17 @@ public class TextAnalyzer implements Detector.Processor<TextBlock> {
     @Override
     public void receiveDetections(@NonNull Detector.Detections<TextBlock> detections) {
         final SparseArray<TextBlock> items = detections.getDetectedItems();
-        List<String> list = new LinkedList<>();
+        List<String> listText = new LinkedList<>();
 
+        // Convert to List of string, then to array...
         if (items.size() != 0) {
             for (int i = 0; i < items.size(); ++i) {
                 TextBlock item = items.valueAt(i);
-                list.add(item.getValue());
+                listText.add(item.getValue());
             }
         }
 
-        if(list.isEmpty()){
+        if(listText.isEmpty()){
             return;
         }
 
@@ -54,12 +58,12 @@ public class TextAnalyzer implements Detector.Processor<TextBlock> {
         executorService.execute(() -> {
             CameraActivity activity = mRefActivity.get();
             SearchTask task = new SearchTask();
-            List<CardWithLines> cards;
+            Set<Card> cards;
 
-            for (final String str : list) {
+            for (final String str : listText) {
                 Log.d(getClass().getSimpleName(), str);
             }
-            cards = task.doInBackground(list.toArray(new String[0]));
+            cards = task.doInBackground(listText.toArray(new String[0]));
 
             if(cards == null || cards.isEmpty()){
                 return;
@@ -69,6 +73,7 @@ public class TextAnalyzer implements Detector.Processor<TextBlock> {
                 // Blocked any thread that attempts to start the card activity
                 // at the same time.
                 if (aBoolean.compareAndSet(true, false)) {
+
                     activity.doOnResult(cards);
                     // Release the TextAnalyzer class after successful result.
                     release();

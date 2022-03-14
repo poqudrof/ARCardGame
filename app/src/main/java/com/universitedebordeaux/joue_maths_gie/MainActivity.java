@@ -2,18 +2,22 @@ package com.universitedebordeaux.joue_maths_gie;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.universitedebordeaux.joue_maths_gie.db.AppDatabase;
+import com.universitedebordeaux.joue_maths_gie.db.Card;
+import com.universitedebordeaux.joue_maths_gie.db.CardDeck;
 import com.universitedebordeaux.joue_maths_gie.download.UpdateDBTask;
 import com.universitedebordeaux.joue_maths_gie.ui.CameraActivity;
 import com.universitedebordeaux.joue_maths_gie.ui.RulesActivity;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.List;
 
 // The main menu of the application. Also the starting point.
 public class MainActivity extends AppCompatActivity {
@@ -34,16 +38,33 @@ public class MainActivity extends AppCompatActivity {
     // TODO: This could check for updates on a server.
     // Once the database is loaded, the button to start is activated.
     private void updateDatabase() {
+
+        // in test
+        String json = Card.loadJSONFromAsset(this);
+        // Log.v("json: ", json);
+        List<Card> cards = Card.loadCards(json);
+        CardDeck.createMainDeck(cards);
+        
+        //Log.v("CARDS", String.valueOf(cards.size()));
+        //Log.v("CARDS", cards.get(10).toString());
+        //Log.v("CARDS", cards.get(11).toString());
+        //Log.v("CARDS", cards.get(100).toString());
+
         Toast updateToast;
+
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         UpdateDBTask updater = new UpdateDBTask(getApplicationContext());
 
         updateToast = Toast.makeText(this, R.string.updating_data, Toast.LENGTH_LONG);
         updateToast.show();
         executorService.execute(() -> {
-            boolean hasSavedData = updater.doInBackground();
+
+            // TODO: update this with the new card loader
+            //boolean hasSavedData = updater.doInBackground();
+            boolean hasSavedData = true;
 
             updateToast.cancel();
+
             runOnUiThread(() -> {
                 if (hasSavedData) {
                     showDataSavedToast();
@@ -53,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
                 setListeners(hasSavedData);
             });
         });
+
+
     }
 
     private void showDataSavedToast() {

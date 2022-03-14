@@ -88,7 +88,6 @@ JSON.parse(res).each do |card|
   cards_hash[card["card_id"]] = card
 end
 
-
 ##  Update the roles of all cards
 uri = URI("#{@host}/cards?_limit=3000")
 res = Net::HTTP.get(uri)
@@ -124,14 +123,16 @@ all_cards.each do |card|
 end; nil ;nil; 
 
 
-
-
+### TODO: Line issues !
 ## Sending the lines
 
 uri, req = build_req("/lines")
 lines = YAML.load_file('lines.yml')
 lines.each do |line| 
+
+  ## Problem of line matching the wrong cards
   card = line[:card_id]
+
   if card && cards_hash[card]
     line["card"] = cards_hash[card]["id"]
     line.delete :card_id

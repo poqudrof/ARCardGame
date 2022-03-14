@@ -5,6 +5,7 @@ import android.content.res.AssetManager;
 import android.util.Log;
 import com.universitedebordeaux.joue_maths_gie.R;
 import com.universitedebordeaux.joue_maths_gie.db.AppDatabase;
+import com.universitedebordeaux.joue_maths_gie.db.Card;
 import com.universitedebordeaux.joue_maths_gie.db.Cards;
 
 import java.io.IOException;
@@ -51,6 +52,10 @@ public class UpdateDBTask {
         AppDatabase.db = AppDatabase.create(context);
         List<Cards> cards = AppDatabase.db.cardDao().getAll();
         Log.v("card", "NB cards found: " + cards.size());
+
+        //String json = Card.loadJSONFromAsset(this);
+        //List<Card> cards = Card.loadCards(json);
+
         // Log.v("CARD", card);
     }
 }

@@ -19,8 +19,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.text.TextRecognizer;
+import com.universitedebordeaux.joue_maths_gie.ARCardApplication;
 import com.universitedebordeaux.joue_maths_gie.R;
 import com.universitedebordeaux.joue_maths_gie.db.AppDatabase;
+import com.universitedebordeaux.joue_maths_gie.db.Card;
+import com.universitedebordeaux.joue_maths_gie.db.CardDeck;
 import com.universitedebordeaux.joue_maths_gie.db.CardWithLines;
 import com.universitedebordeaux.joue_maths_gie.ocr.SurfaceHolderCallback;
 import com.universitedebordeaux.joue_maths_gie.ocr.TextAnalyzer;
@@ -28,7 +31,9 @@ import com.universitedebordeaux.joue_maths_gie.ocr.TextAnalyzer;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -109,13 +114,16 @@ public class CameraActivity extends AppCompatActivity {
         }
         saveCardCode(editTextResult);
         executorService.execute(() -> {
-            CardWithLines card = AppDatabase.db.cardDao().getCardWithLines(editTextResult);
-            List<CardWithLines> cards = new ArrayList<>();
+
+            // try to get the card with specific name
+           // CardWithLines card = AppDatabase.db.cardDao().getCardWithLines(editTextResult)
+            Card card = CardDeck.findCardByID(editTextResult);
 
             runOnUiThread(() -> {
                 if (card == null) {
                     Toast.makeText(this, R.string.card_not_found, Toast.LENGTH_SHORT).show();
                 } else {
+                    Set<Card> cards = new HashSet<Card>();
                     cards.add(card);
                     doOnResult(cards);
                 }
@@ -129,14 +137,9 @@ public class CameraActivity extends AppCompatActivity {
     }
 
     // Send and send the recognition result to the card activity.
-    public void doOnResult(List<CardWithLines> cardsWithLines) {
+    public void doOnResult(Set<Card> cards) {
         Intent intent = new Intent(this, CardActivity.class);
-        Bundle bundle = new Bundle();
-
-        bundle.putParcelableArrayList(cardsList, CardWithLines.toParcelableList(cardsWithLines));
-
-        intent.putExtras(bundle);
-        finish();
+        CardDeck.selectCards(cards);
         startActivity(intent);
     }
 }

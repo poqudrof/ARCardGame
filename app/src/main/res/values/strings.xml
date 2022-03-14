@@ -9,7 +9,7 @@
     <string name="exit_description">Quitter</string>
     <string name="no_data_stored">Il n\'y a aucune données sauvégardées. Veuillez mettre à jour le deck de carte.</string>
     <string name="data_restored_ok">La base de données a été chargée.</string>
-    <string name="db_name">jmg.db</string>
+    <string name="db_name">jmg.json</string>
     <string name="update">Mettre à jour</string>
     <string name="return_button_camera_activity">return_button_camera_activity</string>
     <string name="help">Aide</string>
