@@ -1,0 +1,26 @@
+missing.txt
+
+"cannot link card to line "
+{:card_id=>"vdn6q_1", :line=>"Donner la fraction décimale"}
+"cannot link card to line "
+{:card_id=>"vdn6q_1", :line=>"du nombre suivant : 813,52"}
+"cannot link card to line "
+{:card_id=>"vdn6q_2", :line=>"Ranger dans l''ordre décroissant"}
+"cannot link card to line "
+{:card_id=>"vdn6q_2", :line=>"les nombres suivants :"}
+"cannot link card to line "
+{:card_id=>"vdn6q_2", :line=>"337,588 - 331,598"}
+"cannot link card to line "
+{:card_id=>"vdn6q_2", :line=>"331,654 - 337,458"}
+"cannot link card to line "
+{:card_id=>"vdn6q_2", :line=>"37,45"}
+"cannot link card to line "
+{:card_id=>"vdn6q_3", :line=>"Ranger dans l''ordre croissant"}
+"cannot link card to line "
+{:card_id=>"vdn6q_3", :line=>"les nombres suivants :"}
+"cannot link card to line "
+{:card_id=>"vdn6q_3", :line=>"857,270 - 85,275"}
+"cannot link card to line "
+{:card_id=>"vdn6q_3", :line=>"856,274"}
+"cannot link card to line "
+{:card_id=>"vdn6q_3", :line=>"85,274 - 85,182"}

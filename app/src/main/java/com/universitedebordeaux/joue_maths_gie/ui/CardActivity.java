@@ -32,7 +32,6 @@ import java.util.List;
 // The activity to display the card found in the CameraActivity.
 public class CardActivity extends AppCompatActivity {
 
-    private CardWithLines card;
     private Card currentCard;
     private MediaPlayer mediaPlayer;
 
@@ -44,12 +43,10 @@ public class CardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.card_activity);
 
-        // getCard();
         currentCard = (Card) CardDeck.selectedCards().toArray()[0];
-        // setData();
 
+        Log.v("CARDACTIVITY", "current card: " + currentCard.toString());
         FloatingActionButton cameraButton = findViewById(R.id.card_camera_button);
-        //int color = getColorFromCardType(card.cards.card_type);
         int color = getColorFromCardType(currentCard.card_type);
 
         mediaPlayer = new MediaPlayer();

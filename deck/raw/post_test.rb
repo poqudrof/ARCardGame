@@ -132,7 +132,10 @@ lines.each do |line|
 
   ## Problem of line matching the wrong cards
   card = line[:card_id]
+  line[:line] = line[:content]
+  line.delete :content 
 
+  ## Card found, set the card_id and remove the text match.
   if card && cards_hash[card]
     line["card"] = cards_hash[card]["id"]
     line.delete :card_id
@@ -141,11 +144,11 @@ lines.each do |line|
     p line
     next 
   end 
-  line[:line] = line[:content]
-  line.delete :content 
-  ## Get role id 
+
+  ## send the line
   p send_req(uri, req, line)
 end 
+
 
 ### Sounds are mp3 files that have the card name as file name.
 ## Read all files in ../../assets/sounds

@@ -691,7 +691,7 @@
 ["em6q_2", "ascending order :"]
 ["em6q_2", "9.09 - 9.99 - 99.009"]
 ["em6q_2", "9.9 - 90.09"]
-["em6q_3", "Add 18.03,1.20 ans 20.02"]
+["em6q_3", "Add 18.03,1.20 and 20.02"]
 ["em6q_4", "What is the hundredths digit"]
 ["em6q_4", "of the number 43.424 ?"]
 ["em6q_5", "What is the value of :"]

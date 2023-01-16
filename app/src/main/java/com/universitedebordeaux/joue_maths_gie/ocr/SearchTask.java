@@ -28,16 +28,12 @@ public class SearchTask {
             return null;
         }
 
-        // TODO: Here look for exact text in Lines
-        // TODO: how to do approximate text ?
-        
-        // for each lines -> Map the lines that match. 
-        // 
         Set<Card> cards = new HashSet<Card>();
         HashMap<Card, Integer> scores = new HashMap<>();
 
         Log.v("MATCHER", "matching...");
 
+        // TODO: Scores & approximate match.
         for(String line : lines){
           List<Card> found = CardDeck.matchText(line);
           for(Card card : found){
@@ -58,6 +54,12 @@ public class SearchTask {
                 .sorted(Map.Entry.comparingByValue())
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
                         (e1, e2) -> e1, LinkedHashMap::new));
+
+        // Sort & print the matches
+         scores.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue())
+                .forEach(System.out::println);
 
         Card bestMatch = (Card) sortedCards.keySet().toArray()[0];
         Log.v("MATCHER", "best match " + bestMatch.toString());

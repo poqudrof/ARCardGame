@@ -10,6 +10,8 @@ Reads as:
 `[cardtype][cardlevel]q_[id]`
 
 
+https://joue-maths-gie-manager.herokuapp.com/cards?_limit=3000
+
 ̏̏```
 
 Deck 
