@@ -6,26 +6,44 @@ require 'yaml'
 
 @host = "http://joue-maths-gie-manager.herokuapp.com"
 @host = "http://localhost:1337"
+@host = "https://cards.natar.fr/api"
 deck_name = "joue-maths-gie"
 
-def build_req(route)
-  uri = URI("#{@host}#{route}")
-  req = Net::HTTP::Post.new(uri, 'Content-Type' => 'application/json')
-  [uri, req]
-end
+@http_headers = {
+  'authorization'=>'bearer c81412fe0cc6d66f69b136b804e3405855b0e5cc8237d68074d0e4cab475874ae934e4bc7cbdda30bc18501b15c9711f8deb3e38630c88c33bf0a5fd528293b59971a1fcb7ea9561ee4c21d4b29e37cb942321b6becddf4ea13ac2a941932552e39d2671279ea26cc50336edd76aa77e168fbbb1a9fa5ecbb02b3ff467c5300b',
+  'content-type' =>'application/json',
+  'accept'=>'application/json'
+}
+# def build_req(route)
+#   uri = URI("#{@host}#{route}")
+#   req = Net::HTTP::Post.new(uri, "", @http_headers)
+#   [uri, req]
+# end
 
 def build_put_req(route)
   uri = URI("#{@host}#{route}")
-  req = Net::HTTP::Put.new(uri, 'Content-Type' => 'application/json')
+  req = Net::HTTP::Put.new(uri, @http_headers)
+  ## add json header Bearer token
   [uri, req]
 end
 
-def send_req(uri, req, content)
-  req.body = content.to_json
-  res = Net::HTTP.start(uri.hostname, uri.port) do |http|
-    p "SENDING: #{uri} #{content}"
-    http.request(req)
-  end
+# def send_req(uri, req, content)
+#   ## Content is now in a data field
+#   content = {data: content}
+#   req.body = content.to_json
+#   res = Net::HTTP.start(uri.hostname, uri.port) do |http|
+#     p "SENDING: #{uri} #{req.body}"
+#     http.request(req)
+#   end
+# end
+
+def post(route, content)
+  uri = URI("#{@host}#{route}")
+  content = {data: content}.to_json
+  p "Sending #{uri} #{content}"
+  req = Net::HTTP.post(uri, content, @http_headers)
+  p req
+  req 
 end
 
 ## Find ID of the deck 
@@ -36,17 +54,16 @@ uri.query = URI.encode_www_form(params)
 res = Net::HTTP.get_response(uri)
  
 if res.code.to_i == 200 
-  deck_id = JSON.parse(res.body)[0]["id"]
+  deck_id = JSON.parse(res.body)["data"][0]["id"]
 end 
 
 ## Send the 
 p "Sending card roles..."
 
-uri, req = build_req("/card-roles")
 roles = YAML.load_file('roles.yaml')
 roles.each do |role| 
   role["deck"] = deck_id
-  p send_req(uri, req, role)
+  post("/card-roles", role)
 end 
 
 
@@ -57,25 +74,25 @@ uri = URI("#{@host}/card-roles")
 res = Net::HTTP.get(uri)
 
 roles_hash = {} 
-JSON.parse(res).each do |role|
-  roles_hash[role["title"]] = role
+JSON.parse(res)["data"].each do |role|
+  roles_hash[role["attributes"]["title"]] = role["id"].to_i
 end
-
 
 p "Sending the cards"
 
-uri, req = build_req("/cards")
+# uri, req = build_req("/cards")
 cards = YAML.load_file('cards.yml')
 cards.each do |card| 
   role = card[:role]
   if role && roles_hash[role]
-    card["card_role"] = roles_hash[role]["id"]
+    card["card_role"] = roles_hash[role]
     card.delete :role
   end
   card["deck"] = deck_id
   
   ## Get role id 
-  p send_req(uri, req, card)
+  # p send_req(uri, req, card)
+  post("/cards", card)
 end 
 
 
