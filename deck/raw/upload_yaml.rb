@@ -56,7 +56,7 @@ def update(route, content)
   http.verify_mode = OpenSSL::SSL::VERIFY_NONE
   request = Net::HTTP::Put.new(uri)
   content = {data: content}.to_json
-  
+
   p "Sending #{uri} #{content}"
   request["Content-Type"] = 'application/json'
   request["Authorization"] = 'Bearer c81412fe0cc6d66f69b136b804e3405855b0e5cc8237d68074d0e4cab475874ae934e4bc7cbdda30bc18501b15c9711f8deb3e38630c88c33bf0a5fd528293b59971a1fcb7ea9561ee4c21d4b29e37cb942321b6becddf4ea13ac2a941932552e39d2671279ea26cc50336edd76aa77e168fbbb1a9fa5ecbb02b3ff467c5300b'
@@ -202,7 +202,7 @@ files.each do |file|
   card_id = "#{t}_#{n}"
 
   ## Find the card id
-  uri = URI("#{@host}/cards?filters[card_id][$eq]=#{card_id}")
+  uri = URI("#{@host}/cards?filters[card_id][$eq]=#{card_id}&populate=*")
   res = Net::HTTP.get(uri)
   if res == "[]"
     p "Card not found: #{card_id}."
@@ -212,7 +212,7 @@ files.each do |file|
   card_id = card["id"]
 
   ## TODO: update this
-  if card["voiceover"]
+  if card["attributes"]["voiceover"]["data"] != nil
     p "voiceover alread set for card #{card_id}."
     next
   end
