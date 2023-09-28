@@ -35,7 +35,7 @@ public class Card {
     public static String loadJSONFromAsset(MainActivity activity) {
         String json = null;
         try {
-            InputStream is = activity.getAssets().open("jmg.json");
+            InputStream is = activity.getAssets().open("jmg2.json");
             int size = is.available();
             byte[] buffer = new byte[size];
             is.read(buffer);
@@ -49,12 +49,21 @@ public class Card {
     }
 
     public static List<Card> loadCards(String cardsString){
+
+
       List<Card> cards = new ArrayList<Card>();
       try {
-          JSONArray cardsArray = new JSONArray(cardsString);
+          // New structure Cards are in a Data object.
+          JSONObject dataObject = new JSONObject(cardsString);
+
+          JSONArray cardsArray = dataObject.getJSONArray("data");
+          // new JSONArray(cardsString);
+          System.out.println("Cards found: " + cardsArray.length());
           for (int i = 0; i < cardsArray.length(); i++) {
               JSONObject cardObject = cardsArray.getJSONObject(i);
-              cards.add(parseCard(cardObject));
+              JSONObject attributesObject = cardObject.getJSONObject("attributes");
+              int id = cardObject.getInt("id");
+              cards.add(parseCard(id, attributesObject));
           }
       }catch(JSONException exception){
           Log.e("error", exception.getMessage());
@@ -62,27 +71,35 @@ public class Card {
       return cards;
     }
 
-    public static Card parseCard(JSONObject cardObject){
+    public static Card parseCard(int id, JSONObject cardObject){
       Card card = new Card();
       card.card_id = get(cardObject, "card_id");
-      card.id = Integer.parseInt(get(cardObject, "id"));
+
+      // Is ID really needed ?
+      card.id = id;// Integer.parseInt(get(cardObject, "id"));
       card.number_in_role = Integer.parseInt(get(cardObject, "number_in_role"));
 
-      try{ card.deck =  cardObject.getInt("deck"); } catch(Exception e){}
+      // Deck is in "deck" "data" "id" .
+      // try{ card.deck =  cardObject.getInt("deck"); } catch(Exception e){}
+      // All from the same deck...
+
       card.card_type = get(cardObject, "card_type");
       try{ card.card_role =  cardObject.getInt("card_role"); } catch(Exception e){}
       card.answer = get(cardObject, "answer");
       card.tip = get(cardObject, "tip");
 
       try {
-          JSONArray linesArray = cardObject.getJSONArray("lines");
+          JSONArray linesArray = cardObject.getJSONObject("lines").getJSONArray("data");
           card.lines = new ArrayList<CardLine>();
           for (int i = 0; i < linesArray.length(); i++) {
               JSONObject lineObject = linesArray.getJSONObject(i);
               card.lines.add(new CardLine(lineObject.getString("line"), card));
           }
-      }catch(Exception e){}
+      }catch(Exception e){
+          System.out.println("No lines or impossible to parse lines");
+      }
 
+      System.out.println("Parsed card " + card.toString());
       // card.published_at, created_at, updated_at, updated_by;
       // useless
       // title;

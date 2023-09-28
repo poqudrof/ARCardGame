@@ -1,5 +1,21 @@
-## Card structure 
+## How to build a deck 
 
+
+### Download the cards from the API: 
+
+Download: https://joue-maths-gie-manager.herokuapp.com/cards?_limit=3000
+save as "cards.json"
+
+New API:
+
+https://cards.natar.fr/api/cards?populate=*?&pagination[page]=0&pagination[pageSize]=1000
+
+
+### Get the additionnal data from the data server
+
+
+
+## Card structure 
 
 ### names 
 
@@ -10,7 +26,6 @@ Reads as:
 `[cardtype][cardlevel]q_[id]`
 
 
-https://joue-maths-gie-manager.herokuapp.com/cards?_limit=3000
 
 ̏̏```
 
