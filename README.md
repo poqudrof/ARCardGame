@@ -29,3 +29,10 @@ The AR cards structure is as follows.
 5. Cards can have additional media, currently: Answer, Tip, Illustration (image), preview (image), voiceover (mp3).  
 
 In order to identify a card using the app. The full deck has to be loaded in the app. 
+
+
+## Build a release 
+
+1. Check / update the cards JSON and audio files.
+1. Build the app bundle in Android Studio (Signed build). 
+2. Release the 
