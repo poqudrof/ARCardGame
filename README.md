@@ -34,5 +34,6 @@ In order to identify a card using the app. The full deck has to be loaded in the
 ## Build a release 
 
 1. Check / update the cards JSON and audio files.
-1. Build the app bundle in Android Studio (Signed build). 
-2. Release the 
+2. Download them along with the images and MP3.
+3. Build the app bundle in Android Studio (Signed build). 
+4. Distribute it. 
