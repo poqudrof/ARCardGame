@@ -14,6 +14,11 @@ The project was initially created to augment a physical game called Joue Maths G
 * The [Manager](https://github.com/poqudrof/ARCardGameManager) repository is the backend to create augmentations. 
 * The [frontend](https://github.com/poqudrof/ARCardGameWebsite) repository contains a website to obtain user and legal information about the application and download it.
 
+### Features to come 
+
+* Card Editor. 
+* Card PDF export.
+
 ## How to build 
 
 The application requires Adroid Studio and is built using Gradle. 
